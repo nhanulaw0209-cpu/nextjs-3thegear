@@ -1,0 +1,131 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Event {
+  id            String             @id @default(cuid())
+  slug          String             @unique
+  title         String
+  summary       String?
+  description   String?
+  heroImageUrl  String?
+  showDuration  String?            // e.g. "90 phút (19:00 - 20:30)"
+  isPublished   Boolean            @default(true)
+  listBuyItems  EventListBuyItem[]
+  setlistItems  SetlistItem[]
+  galleryItems  GalleryItem[]
+  bookings      Booking[]
+  scheduleSlots ShowSchedule[]
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+}
+
+model SetlistItem {
+  id        String  @id @default(cuid())
+  eventId   String
+  event     Event   @relation(fields: [eventId], references: [id])
+  title     String
+  artist    String?
+  sortOrder Int     @default(0)
+}
+
+model EventListBuyItem {
+  id          String            @id @default(cuid())
+  eventId     String
+  event       Event             @relation(fields: [eventId], references: [id])
+  name        String
+  description String?
+  price       Int
+  sortOrder   Int               @default(0)
+  isActive    Boolean           @default(true)
+  lineItems   BookingLineItem[]
+}
+
+// status: "available" | "pending" | "booked" | "cancelled"
+model ShowSchedule {
+  id        String   @id @default(cuid())
+  date      String
+  startTime String?
+  endTime   String?
+  status    String   @default("available")
+  eventId   String?
+  event     Event?   @relation(fields: [eventId], references: [id])
+  bookingId String?  @unique
+  booking   Booking? @relation(fields: [bookingId], references: [id])
+  location  String?
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// status: "pending_payment" | "payment_submitted" | "confirmed" | "cancelled"
+model Booking {
+  id            String            @id @default(cuid())
+  bookingNumber Int               @default(0)
+  eventId       String
+  event         Event             @relation(fields: [eventId], references: [id])
+  scheduleSlot  ShowSchedule?
+  customerName  String
+  customerPhone String
+  customerEmail String?
+  eventDate     String
+  eventTime     String
+  guestCount    Int?
+  notes         String?
+  status        String            @default("pending_payment")
+  total         Int
+  lineItems     BookingLineItem[]
+  createdAt     DateTime          @default(now())
+}
+
+model BookingLineItem {
+  id            String           @id @default(cuid())
+  bookingId     String
+  booking       Booking          @relation(fields: [bookingId], references: [id])
+  listBuyItemId String
+  listBuyItem   EventListBuyItem @relation(fields: [listBuyItemId], references: [id])
+  name          String
+  price         Int
+  quantity      Int              @default(1)
+}
+
+// type: "photo" | "video"
+model GalleryItem {
+  id        String   @id @default(cuid())
+  type      String
+  url       String
+  caption   String?
+  category  String   @default("performance") // "poster" | "portrait" | "performance"
+  eventId   String?
+  event     Event?   @relation(fields: [eventId], references: [id])
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model Partner {
+  id        String  @id @default(cuid())
+  name      String
+  logoUrl   String
+  linkUrl   String?
+  sinceYear Int?
+  sortOrder Int     @default(0)
+  isActive  Boolean @default(true)
+}
+
+model SiteSettings {
+  id            String   @id @default("singleton")
+  bankName      String?
+  accountNumber String?
+  accountName   String?
+  qrImageUrl    String?
+  branch        String?
+  ownerPhotoUrl String?
+  contactPhone  String?
+  contactEmail  String?
+  updatedAt     DateTime @updatedAt
+}

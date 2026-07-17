@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-text font-montserrat;
+  }
+
+  h1, h2, h3 {
+    @apply font-jost;
+  }
+
+  html[data-lang="vi"] body {
+    --font-jost: var(--font-be-vietnam-heading);
+    --font-montserrat: var(--font-be-vietnam-body);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}

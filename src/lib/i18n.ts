@@ -1,0 +1,277 @@
+export const UI_STRINGS = {
+  navAbout: { vi: "Về Chúng Tôi", en: "About Us", ru: "О нас", zh: "关于我们", ko: "회사 소개" },
+  navServices: { vi: "Dịch Vụ", en: "Services", ru: "Услуги", zh: "服务项目", ko: "서비스" },
+  navPartners: { vi: "Đối Tác", en: "Partners", ru: "Партнёры", zh: "合作伙伴", ko: "파트너" },
+  navBook: { vi: "Đặt Lịch", en: "Book Now", ru: "Забронировать", zh: "立即预订", ko: "예약하기" },
+  navContact: { vi: "Liên Hệ", en: "Contact", ru: "Контакты", zh: "联系我们", ko: "문의하기" },
+  navGallery: { vi: "Gallery", en: "Gallery", ru: "Галерея", zh: "相册", ko: "갤러리" },
+
+  heroEyebrow: {
+    vi: "Mũi Né · Est. 2024 · Live Band Đa Phong Cách",
+    en: "Mui Ne, Vietnam · Est. 2024 · Multi-Genre Live Band",
+    ru: "Мюйне, Вьетнам · С 2024 года · Мульти-жанровая live-группа",
+    zh: "越南美奈 · 成立于2024年 · 多风格现场乐队",
+    ko: "베트남 무이네 · 2024년 설립 · 다장르 라이브 밴드",
+  },
+  heroTitle: {
+    vi: "Live Band & Sản Xuất Sự Kiện Trọn Gói",
+    en: "Live Band & Full-Service Event Production",
+    ru: "Live-музыка и полное продюсирование мероприятий",
+    zh: "现场乐队与全方位活动制作",
+    ko: "라이브 밴드 & 토탈 이벤트 프로덕션",
+  },
+
+  eventsTitle: { vi: "4 Nhóm Dịch Vụ", en: "Our 4 Services", ru: "4 группы услуг", zh: "四大服务", ko: "4가지 서비스 그룹" },
+  eventsSubtitle: {
+    vi: "Từ ban nhạc, âm thanh ánh sáng, sản xuất nội dung đến tổ chức sự kiện trọn gói.",
+    en: "From live band and sound & lighting to media production and full-service event organization.",
+    ru: "От live-группы, звука и света до продакшена и полной организации мероприятий.",
+    zh: "从乐队、音响灯光、内容制作到全方位活动组织。",
+    ko: "밴드, 음향·조명부터 미디어 제작, 토탈 이벤트 기획까지.",
+  },
+  aboutEyebrow: { vi: "Về Chúng Tôi", en: "About Us", ru: "О нас", zh: "关于我们", ko: "회사 소개" },
+  aboutTitle: {
+    vi: "Một đội hình nghệ sĩ hàng đầu Mũi Né",
+    en: "A Leading Ensemble of Artists in Mui Ne",
+    ru: "Ведущий коллектив артистов в Мюйне",
+    zh: "美奈领先的艺人团队",
+    ko: "무이네를 대표하는 아티스트 앙상블",
+  },
+  aboutP1: {
+    vi: "Thành lập từ năm 2024, 3TG Event phát triển từ một nhóm nhạc nhỏ thành đơn vị cung cấp giải pháp âm nhạc & sản xuất sự kiện trọn gói, phục vụ từ tiệc cưới, resort 5 sao đến gala của các tập đoàn đa quốc gia.",
+    en: "Founded in 2024, 3TG Event has grown from a small group of musicians into a full-service music and event production company, serving everything from weddings to five-star resorts to galas for multinational corporations.",
+    ru: "Основанная в 2024 году, 3TG Event выросла из небольшой группы музыкантов в компанию полного цикла по музыкальному и событийному продюсированию, обслуживающую всё - от свадеб и пятизвёздочных курортов до гала-мероприятий транснациональных корпораций.",
+    zh: "3TG Event 成立于2024年，从一支小型乐队发展成为提供音乐与活动全流程制作服务的团队，服务范围涵盖婚礼、五星级度假村，乃至跨国企业的晚宴活动。",
+    ko: "2024년에 설립된 3TG Event는 소규모 뮤지션 그룹에서 시작해 결혼식부터 5성급 리조트, 다국적 기업의 갈라 행사까지 아우르는 종합 음악·이벤트 프로덕션 팀으로 성장했습니다.",
+  },
+  aboutP2: {
+    vi: "Đội ngũ gồm nhạc công, ca sĩ, sound engineer giàu kinh nghiệm, cùng hệ thống Âm thanh – Ánh sáng – Sân khấu – DJ – Vũ đoàn Lân Sư Rồng vận hành chuyên nghiệp cho mọi quy mô sự kiện.",
+    en: "Our team includes experienced musicians, vocalists, and sound engineers, backed by a professional sound, lighting, staging, DJ, and Lion-Dragon dance troupe set up to run events of any scale.",
+    ru: "В нашу команду входят опытные музыканты, вокалисты и звукоинженеры, а также профессиональная система звука, света, сценического оборудования, DJ-сетапа и труппа танца льва и дракона для проведения мероприятий любого масштаба.",
+    zh: "我们的团队由经验丰富的乐手、歌手和音响工程师组成，并配备专业的音响、灯光、舞台、DJ与舞龙舞狮团队，可胜任各种规模的活动。",
+    ko: "저희 팀은 풍부한 경험을 갖춘 연주자, 보컬, 사운드 엔지니어로 구성되어 있으며, 전문 음향·조명·무대·DJ 시스템과 사자춤·용춤 공연팀을 갖추어 모든 규모의 이벤트를 운영합니다.",
+  },
+  aboutP3: {
+    vi: "Phạm vi phục vụ trải dài từ Sài Gòn đến Nha Trang, với 2 kho thiết bị đặt tại Sài Gòn và Phan Thiết cùng đội ngũ nhân viên, xe vận chuyển nhà. Với các sự kiện quy mô trên 5.000 khách, 3TG hợp tác cùng các đơn vị tổ chức sự kiện đối tác quen thuộc để đảm bảo chất lượng phục vụ.",
+    en: "Coverage spans from Saigon to Nha Trang, with two equipment depots in Saigon and Phan Thiet plus our own in-house staff and vehicles. For events beyond 5,000 guests, 3TG partners with trusted event-organizing companies to ensure quality.",
+    ru: "Зона обслуживания охватывает территорию от Сайгона до Нячанга, с двумя складами оборудования в Сайгоне и Фантьете, а также собственным персоналом и транспортом. Для мероприятий свыше 5000 гостей 3TG сотрудничает с проверенными партнёрами по организации событий, чтобы гарантировать качество.",
+    zh: "服务范围覆盖西贡至芽庄，在西贡和潘切设有两个设备仓库，配备自有员工与车辆。对于超过5000人的大型活动，3TG会与信赖的活动策划合作伙伴共同协作，确保服务品质。",
+    ko: "서비스 지역은 사이공부터 나짱까지이며, 사이공과 판티엣 두 곳에 장비 창고를 두고 자체 인력과 차량을 보유하고 있습니다. 5,000명이 넘는 대규모 행사는 신뢰하는 이벤트 기획 파트너사와 협업하여 품질을 보장합니다.",
+  },
+  aboutBandHeading: { vi: "Đội Hình Band", en: "Band Lineup", ru: "Состав группы", zh: "乐队阵容", ko: "밴드 라인업" },
+  aboutBandIntro: {
+    vi: "Phong cách hòa quyện giữa sự quyến rũ, nồng nhiệt của Latin và sự sôi động, hào nhoáng của Disco - 3TG Band từng biểu diễn cho các thương hiệu lớn như Vinfast Lâm Đồng và Dell Technology.",
+    en: "A style blending the passionate allure of Latin with the vibrant energy of Disco - 3TG Band has performed for major brands including Vinfast Lam Dong and Dell Technology.",
+    ru: "Стиль, сочетающий страстное очарование Latin с яркой энергией Disco - 3TG Band выступала для крупных брендов, включая Vinfast Lam Dong и Dell Technology.",
+    zh: "融合Latin的迷人热情与Disco的活力风采 - 3TG Band曾为Vinfast Lâm Đồng、戴尔科技（Dell Technology）等知名品牌演出。",
+    ko: "Latin의 매혹적인 열정과 Disco의 활기찬 에너지가 어우러진 스타일 - 3TG Band는 Vinfast Lâm Đồng, Dell Technology 등 주요 브랜드를 위해 공연했습니다.",
+  },
+  leaderHeading: { vi: "Trưởng Nhóm", en: "Band Leader", ru: "Лидер группы", zh: "乐队领队", ko: "밴드 리더" },
+  leaderBio: {
+    vi: "Ngô Thanh Lam Phiên - Guitarist kiêm Leader của 3TG Band, với hơn 16 năm kinh nghiệm biểu diễn và 4 năm giảng dạy guitar tại PAC Music Class. Anh cũng đảm nhiệm vai trò Sound Engineer, từng phụ trách hệ thống âm thanh cho sự kiện ra mắt Volvo & Lamborghini tại Đại hội Siêu xe Miền Nam 2020 và Chương trình Vinh danh Tuyển thủ SEA Games Việt Nam 2022.",
+    en: "Ngo Thanh Lam Phien - Guitarist and Leader of 3TG Band, with over 16 years of performing experience and 4 years teaching guitar at PAC Music Class. He also works as a Sound Engineer, having handled the sound system for the Volvo & Lamborghini launch at the Southern Vietnam Supercar Exhibition 2020 and the Vietnam SEA Games Athletes Honoring Ceremony 2022.",
+    ru: "Нго Тхань Лам Фиен - гитарист и лидер 3TG Band, с более чем 16-летним опытом выступлений и 4 годами преподавания игры на гитаре в PAC Music Class. Он также работает звукоинженером, отвечал за звуковую систему на презентации Volvo & Lamborghini на Южновьетнамской выставке суперкаров 2020 года и на Церемонии чествования спортсменов SEA Games Вьетнама 2022 года.",
+    zh: "吴清林扁（Ngô Thanh Lam Phiên）- 3TG Band吉他手兼团长，拥有16年以上演出经验，并在PAC Music Class任教吉他4年。他同时担任音响工程师，曾负责2020年越南南部超跑展沃尔沃与兰博基尼新车发布会，以及2022年越南东南亚运动会运动员表彰典礼的音响系统。",
+    ko: "응오 탄 람 피엔(Ngô Thanh Lam Phiên) - 3TG Band의 기타리스트 겸 리더로, 16년 이상의 공연 경력과 PAC Music Class에서 4년간 기타를 가르친 경력을 갖고 있습니다. 사운드 엔지니어로도 활동하며 2020년 남부베트남 슈퍼카 전시회의 볼보 & 람보르기니 런칭 행사, 2022년 베트남 SEA Games 선수 시상식의 음향 시스템을 담당했습니다.",
+  },
+  statYears: { vi: "Năm Kinh Nghiệm", en: "Years of Experience", ru: "Лет опыта", zh: "年经验", ko: "년 경력" },
+  statPartners: { vi: "Đối Tác Lớn", en: "Major Partners", ru: "Крупных партнёров", zh: "重要合作伙伴", ko: "주요 파트너" },
+  statSouth: { vi: "Miền Nam", en: "Southern Vietnam", ru: "Южный Вьетнам", zh: "越南南部", ko: "베트남 남부" },
+  bookNow: { vi: "Đặt Lịch Ngay", en: "Book Now", ru: "Забронировать сейчас", zh: "立即预订", ko: "지금 예약하기" },
+
+  partnersTitle: {
+    vi: "Đồng Hành Cùng Những Thương Hiệu Hàng Đầu",
+    en: "Trusted By Leading Brands",
+    ru: "Нам доверяют ведущие бренды",
+    zh: "深受知名品牌信赖",
+    ko: "선도 브랜드가 신뢰하는 파트너",
+  },
+  partnersSubtitle: {
+    vi: "Từ tập đoàn đa quốc gia đến resort 5 sao, 3TG Event là lựa chọn tin cậy cho các sự kiện quan trọng nhất.",
+    en: "From multinational corporations to five-star resorts, 3TG Event is the trusted choice for your most important events.",
+    ru: "От транснациональных корпораций до пятизвёздочных курортов - 3TG Event является надёжным выбором для самых важных мероприятий.",
+    zh: "从跨国企业到五星级度假村，3TG Event 都是您举办重要活动的可靠之选。",
+    ko: "다국적 기업부터 5성급 리조트까지, 3TG Event는 가장 중요한 행사를 위한 신뢰할 수 있는 선택입니다.",
+  },
+
+  contactTitle: { vi: "Đặt Lịch Biểu Diễn", en: "Book Your Show", ru: "Забронируйте выступление", zh: "预订您的演出", ko: "쇼 예약하기" },
+  contactSubtitle: {
+    vi: "Để lại thông tin, đội ngũ 3TG Event sẽ liên hệ tư vấn trong thời gian sớm nhất.",
+    en: "Leave your details and the 3TG Event team will get back to you shortly.",
+    ru: "Оставьте свои данные, и команда 3TG Event свяжется с вами в ближайшее время.",
+    zh: "留下您的联系方式，3TG Event 团队将尽快与您联系。",
+    ko: "정보를 남겨주시면 3TG Event 팀이 빠른 시일 내에 연락드리겠습니다.",
+  },
+  formName: { vi: "Họ Tên *", en: "Full Name *", ru: "Полное имя *", zh: "姓名 *", ko: "성함 *" },
+  formPhone: { vi: "Số Điện Thoại *", en: "Phone Number *", ru: "Номер телефона *", zh: "电话号码 *", ko: "전화번호 *" },
+  formEventType: { vi: "Loại Dịch Vụ", en: "Service Type", ru: "Тип услуги", zh: "服务类型", ko: "서비스 유형" },
+  formDate: { vi: "Ngày Dự Kiến", en: "Preferred Date", ru: "Желаемая дата", zh: "预计日期", ko: "희망 날짜" },
+  formNotes: { vi: "Ghi Chú / Yêu Cầu", en: "Notes / Requirements", ru: "Примечания / пожелания", zh: "备注 / 需求", ko: "메모 / 요청사항" },
+  formSubmit: { vi: "Đặt Show Ngay", en: "Book Show Now", ru: "Забронировать сейчас", zh: "立即预订演出", ko: "지금 쇼 예약하기" },
+  areaLabel: { vi: "Khu vực:", en: "Area:", ru: "Регион:", zh: "服务区域：", ko: "지역:" },
+  areaValue: {
+    vi: "Mũi Né · Phục vụ toàn miền Nam",
+    en: "Mui Ne · Serving all of Southern Vietnam",
+    ru: "Мюйне · Обслуживаем весь Южный Вьетнам",
+    zh: "美奈 · 服务越南南部全境",
+    ko: "무이네 · 베트남 남부 전역 서비스",
+  },
+
+  donateTitle: { vi: "Tiếp Thêm Lửa Nghề", en: "Fuel Our Passion", ru: "Подпитайте нашу страсть", zh: "点燃我们的热情", ko: "열정에 불을 지펴주세요" },
+  donateSubtitle: {
+    vi: "Nếu yêu thích âm nhạc của 3TG Event, bạn có thể ủng hộ để tiếp thêm động lực cho đội ngũ tiếp tục sáng tạo.",
+    en: "If you love 3TG Event's music, you can support us to help keep the team creating.",
+    ru: "Если вам нравится музыка 3TG Event, вы можете поддержать нас, чтобы команда могла продолжать творить.",
+    zh: "如果您喜欢 3TG Event 的音乐，欢迎给予支持，助力团队持续创作。",
+    ko: "3TG Event의 음악을 좋아하신다면, 후원을 통해 팀이 계속 창작 활동을 이어갈 수 있도록 힘을 보태주세요.",
+  },
+  donateQrLabel: { vi: "QR Chuyển Khoản (Demo)", en: "Transfer QR (Demo)", ru: "QR для перевода (демо)", zh: "转账二维码（演示）", ko: "이체용 QR (데모)" },
+  donateQrLabelReal: { vi: "QR Chuyển Khoản", en: "Transfer QR", ru: "QR для перевода", zh: "转账二维码", ko: "이체용 QR" },
+  donateButton: { vi: "Ủng Hộ", en: "Donate", ru: "Поддержать", zh: "捐赠支持", ko: "후원하기" },
+  donateNote: {
+    vi: "* Thông tin ngân hàng và QR ở trên là dữ liệu demo, sẽ được cập nhật bằng thông tin thật.",
+    en: "* The bank details and QR above are demo data and will be replaced with real information.",
+    ru: "* Банковские реквизиты и QR-код выше являются демонстрационными данными и будут заменены на реальную информацию.",
+    zh: "* 以上银行信息及二维码均为演示数据，正式上线前将替换为真实信息。",
+    ko: "* 위 계좌 정보와 QR 코드는 데모 데이터이며, 추후 실제 정보로 교체될 예정입니다.",
+  },
+
+  // About page
+  statFollowers: { vi: "Followers", en: "Followers", ru: "Подписчиков", zh: "粉丝", ko: "팔로워" },
+  aboutInfoUs: { vi: "Chúng Tôi", en: "Us", ru: "О нас", zh: "我们", ko: "소개" },
+  aboutInfoArea: { vi: "Khu Vực Phục Vụ", en: "Service Area", ru: "Зона обслуживания", zh: "服务区域", ko: "서비스 지역" },
+  hotlineLabel: { vi: "Hotline", en: "Hotline", ru: "Горячая линия", zh: "热线", ko: "핫라인" },
+  ctaConsult: { vi: "Liên Hệ Tư Vấn", en: "Get in Touch", ru: "Связаться с нами", zh: "咨询联系", ko: "상담 문의" },
+
+  // Services listing / detail
+  servicesHeading: { vi: "4 Nhóm Dịch Vụ", en: "Our 4 Services", ru: "4 группы услуг", zh: "四大服务", ko: "4가지 서비스 그룹" },
+  backToServices: { vi: "← Về Dịch Vụ", en: "← Back to Services", ru: "← К услугам", zh: "← 返回服务", ko: "← 서비스로 돌아가기" },
+
+  // Event detail page
+  showDurationLabel: { vi: "Thời lượng show:", en: "Show duration:", ru: "Длительность шоу:", zh: "演出时长：", ko: "공연 시간:" },
+  listBuyHeading: { vi: "Gói Dịch Vụ", en: "Packages", ru: "Пакеты услуг", zh: "服务套餐", ko: "서비스 패키지" },
+  setlistHeading: { vi: "Danh Sách Bài Hát", en: "Setlist", ru: "Плейлист", zh: "歌单", ko: "셋리스트" },
+  imagesHeading: { vi: "Hình Ảnh", en: "Photos", ru: "Фотографии", zh: "图片", ko: "사진" },
+  bookingHeading: { vi: "Đặt Lịch", en: "Booking", ru: "Бронирование", zh: "预订", ko: "예약" },
+  contactToBook: { vi: "Liên hệ đặt lịch", en: "Contact to Book", ru: "Связаться для бронирования", zh: "联系预订", ko: "예약 문의" },
+
+  // Booking / payment page
+  backToEvent: { vi: "← Về trang sự kiện", en: "← Back to Event", ru: "← К мероприятию", zh: "← 返回活动页", ko: "← 이벤트 페이지로" },
+  totalLabel: { vi: "Tổng cộng", en: "Total", ru: "Итого", zh: "总计", ko: "합계" },
+  transferInfoHeading: { vi: "Thông Tin Chuyển Khoản", en: "Transfer Information", ru: "Информация для перевода", zh: "转账信息", ko: "이체 정보" },
+  bankLabel: { vi: "Ngân hàng:", en: "Bank:", ru: "Банк:", zh: "银行：", ko: "은행:" },
+  accountNumberLabel: { vi: "Số tài khoản:", en: "Account number:", ru: "Номер счёта:", zh: "账号：", ko: "계좌번호:" },
+  accountNameLabel: { vi: "Chủ tài khoản:", en: "Account holder:", ru: "Владелец счёта:", zh: "账户名：", ko: "예금주:" },
+  branchLabel: { vi: "Chi nhánh:", en: "Branch:", ru: "Отделение:", zh: "分行：", ko: "지점:" },
+  notUpdatedYet: { vi: "(chưa cập nhật)", en: "(not yet updated)", ru: "(ещё не обновлено)", zh: "（尚未更新）", ko: "(아직 업데이트되지 않음)" },
+  transferContentLabel: { vi: "Nội dung chuyển khoản:", en: "Transfer note:", ru: "Назначение платежа:", zh: "转账备注：", ko: "이체 메모:" },
+  markTransferredBtn: { vi: "Tôi Đã Chuyển Khoản", en: "I've Made the Transfer", ru: "Я перевёл(а) деньги", zh: "我已转账", ko: "송금 완료" },
+  sendingLabel: { vi: "Đang gửi...", en: "Sending...", ru: "Отправка...", zh: "发送中...", ko: "전송 중..." },
+  transferHelpText: {
+    vi: "Sau khi chuyển khoản, bấm nút trên để báo cho chúng tôi. Đội ngũ 3TG Event sẽ xác nhận trong thời gian sớm nhất.",
+    en: "After transferring, tap the button above to let us know. The 3TG Event team will confirm shortly.",
+    ru: "После перевода нажмите кнопку выше, чтобы сообщить нам. Команда 3TG Event подтвердит в ближайшее время.",
+    zh: "转账完成后，请点击上方按钮通知我们，3TG Event 团队将尽快为您确认。",
+    ko: "이체 후 위 버튼을 눌러 알려주세요. 3TG Event 팀이 빠르게 확인해 드리겠습니다.",
+  },
+  thankYouText: {
+    vi: "Cảm ơn bạn! Chúng tôi sẽ xác nhận thanh toán và liên hệ lại sớm nhất.",
+    en: "Thank you! We'll confirm your payment and get back to you shortly.",
+    ru: "Спасибо! Мы подтвердим оплату и свяжемся с вами в ближайшее время.",
+    zh: "感谢您！我们将确认付款并尽快与您联系。",
+    ko: "감사합니다! 결제를 확인 후 빠르게 연락드리겠습니다.",
+  },
+  bookingStatusPendingPayment: { vi: "Chờ chuyển khoản", en: "Awaiting Transfer", ru: "Ожидание перевода", zh: "等待转账", ko: "송금 대기 중" },
+  bookingStatusSubmitted: { vi: "Đã báo chuyển khoản - chờ xác nhận", en: "Transfer Reported - Awaiting Confirmation", ru: "Перевод отправлен - ожидание подтверждения", zh: "已提交转账 - 等待确认", ko: "송금 완료 - 확인 대기 중" },
+  bookingStatusConfirmed: { vi: "Đã xác nhận", en: "Confirmed", ru: "Подтверждено", zh: "已确认", ko: "확인됨" },
+  statusCancelled: { vi: "Đã huỷ", en: "Cancelled", ru: "Отменено", zh: "已取消", ko: "취소됨" },
+
+  // Booking form
+  selectPackageHeading: { vi: "Chọn gói dịch vụ", en: "Select a Package", ru: "Выберите пакет", zh: "选择服务套餐", ko: "패키지 선택" },
+  emailLabel: { vi: "Email", en: "Email", ru: "Email", zh: "邮箱", ko: "이메일" },
+  eventDateLabel: { vi: "Ngày sự kiện *", en: "Event Date *", ru: "Дата мероприятия *", zh: "活动日期 *", ko: "행사 날짜 *" },
+  eventTimeLabel: { vi: "Khung giờ *", en: "Time Slot *", ru: "Временной слот *", zh: "时间段 *", ko: "시간대 *" },
+  eventTimeOptionSelect: { vi: "-- Chọn khung giờ --", en: "-- Select time --", ru: "-- Выберите время --", zh: "-- 请选择时间 --", ko: "-- 시간 선택 --" },
+  eventTimeSlotFull: { vi: "Đã đặt", en: "Booked", ru: "Занято", zh: "已被预订", ko: "예약됨" },
+  guestCountLabel: { vi: "Số khách", en: "Guest Count", ru: "Количество гостей", zh: "宾客人数", ko: "하객 수" },
+  notesLabel: { vi: "Ghi chú", en: "Notes", ru: "Примечания", zh: "备注", ko: "메모" },
+  requiredLabel: { vi: "Bắt buộc", en: "Required", ru: "Обязательно", zh: "必填", ko: "필수" },
+  selectAtLeastOneError: { vi: "Vui lòng chọn ít nhất một gói dịch vụ", en: "Please select at least one package", ru: "Пожалуйста, выберите хотя бы один пакет", zh: "请至少选择一个服务套餐", ko: "패키지를 하나 이상 선택해 주세요" },
+  bookingFailedError: { vi: "Không thể đặt lịch", en: "Unable to book", ru: "Не удалось оформить бронирование", zh: "预订失败", ko: "예약에 실패했습니다" },
+
+  // Gallery / Calendar
+  galleryEmptyLabel: { vi: "Chưa có hình ảnh nào.", en: "No photos yet.", ru: "Пока нет фотографий.", zh: "暂无图片。", ko: "아직 사진이 없습니다." },
+  calendarSubtitle: {
+    vi: "Xem lịch show còn trống, bấm vào ngày để đặt lịch trực tiếp cho sự kiện đó.",
+    en: "Check open dates and tap a day to book that event directly.",
+    ru: "Смотрите свободные даты и нажмите на день, чтобы забронировать мероприятие напрямую.",
+    zh: "查看空闲档期，点击日期即可直接预订该场次。",
+    ko: "예약 가능한 날짜를 확인하고, 날짜를 눌러 바로 예약하세요.",
+  },
+  loadingLabel: { vi: "Đang tải...", en: "Loading...", ru: "Загрузка...", zh: "加载中...", ko: "불러오는 중..." },
+
+  // ShowCalendar
+  slotAvailable: { vi: "Còn trống", en: "Available", ru: "Свободно", zh: "空闲", ko: "예약 가능" },
+  slotBooked: { vi: "Đã đặt", en: "Booked", ru: "Забронировано", zh: "已预订", ko: "예약됨" },
+  slotPending: { vi: "Đang chờ", en: "Pending", ru: "В ожидании", zh: "待确认", ko: "대기 중" },
+  viewYear: { vi: "Năm", en: "Year", ru: "Год", zh: "年", ko: "연도" },
+  viewMonth: { vi: "Tháng", en: "Month", ru: "Месяц", zh: "月", ko: "월" },
+  viewWeek: { vi: "Tuần", en: "Week", ru: "Неделя", zh: "周", ko: "주" },
+  unassignedSlot: { vi: "Chưa gán dịch vụ", en: "No event assigned", ru: "Мероприятие не назначено", zh: "尚未指定活动", ko: "이벤트 미지정" },
+  bookThisDateLabel: { vi: "Đặt Lịch Ngày Này →", en: "Book This Date →", ru: "Забронировать эту дату →", zh: "预订此日期 →", ko: "이 날짜 예약하기 →" },
+
+  // GalleryGrid
+  categoryStage: { vi: "Sân Khấu", en: "Stage", ru: "Сцена", zh: "舞台", ko: "무대" },
+  itemsUnit: { vi: "mục", en: "items", ru: "шт.", zh: "项", ko: "개" },
+  closeLabel: { vi: "Đóng", en: "Close", ru: "Закрыть", zh: "关闭", ko: "닫기" },
+  qrNotUpdated: { vi: "QR Demo - chưa cập nhật", en: "QR Demo - not yet updated", ru: "QR демо - ещё не обновлено", zh: "QR演示 - 尚未更新", ko: "QR 데모 - 아직 업데이트되지 않음" },
+
+  // Footer
+  footerTagline: {
+    vi: "Live band và sản xuất sự kiện trọn gói tại Mũi Né, phục vụ toàn miền Nam.",
+    en: "Live band and full-service event production in Mui Ne, serving all of Southern Vietnam.",
+    ru: "Live-музыка и полное продюсирование мероприятий в Мюйне, обслуживаем весь Южный Вьетнам.",
+    zh: "美奈现场乐队与全方位活动制作，服务越南南部全境。",
+    ko: "무이네 라이브 밴드 & 토탈 이벤트 프로덕션, 베트남 남부 전역 서비스.",
+  },
+  footerConnect: { vi: "Kết Nối Với 3TG Event", en: "Connect With 3TG Event", ru: "Свяжитесь с 3TG Event", zh: "关注 3TG Event", ko: "3TG Event와 연결하기" },
+  footerRights: { vi: "Bảo lưu mọi quyền.", en: "All rights reserved.", ru: "Все права защищены.", zh: "版权所有。", ko: "모든 권리 보유." },
+  footerDesignedBy: {
+    vi: "Thiết kế bởi",
+    en: "Designed by",
+    ru: "Дизайн от",
+    zh: "设计者",
+    ko: "디자인",
+  },
+
+  // QuickInquiryForm
+  quickInquiryHeading: { vi: "Chưa chắc ngày, hoặc cần tư vấn?", en: "Not sure of a date, or need advice?", ru: "Не уверены в дате или нужна консультация?", zh: "还没确定日期，或需要咨询？", ko: "날짜가 확실하지 않거나 상담이 필요하신가요?" },
+  showDateLabel: { vi: "Ngày Đặt Show", en: "Show Date", ru: "Дата шоу", zh: "演出日期", ko: "공연 날짜" },
+  eventTypeOptionSelect: { vi: "-- Chọn --", en: "-- Select --", ru: "-- Выбрать --", zh: "-- 请选择 --", ko: "-- 선택 --" },
+  serviceTypeBand: { vi: "3TG Band", en: "3TG Band", ru: "3TG Band", zh: "3TG Band", ko: "3TG Band" },
+  serviceTypeSoundLighting: {
+    vi: "3TG Sound & Lighting",
+    en: "3TG Sound & Lighting",
+    ru: "3TG Sound & Lighting",
+    zh: "3TG Sound & Lighting",
+    ko: "3TG Sound & Lighting",
+  },
+  serviceTypeProduction: { vi: "3TG Production", en: "3TG Production", ru: "3TG Production", zh: "3TG Production", ko: "3TG Production" },
+  serviceTypeEvent: { vi: "3TG Event (Trọn Gói)", en: "3TG Event (Full-Service)", ru: "3TG Event (Полный цикл)", zh: "3TG Event（全套）", ko: "3TG Event (토탈 패키지)" },
+} as const;
+
+export const MONTHS_BY_LANG: Record<string, string[]> = {
+  vi: ["T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T12"],
+  en: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+  ru: ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"],
+  zh: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+  ko: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
+};
+
+export const DAYS_BY_LANG: Record<string, string[]> = {
+  vi: ["T2", "T3", "T4", "T5", "T6", "T7", "CN"],
+  en: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+  ru: ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"],
+  zh: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+  ko: ["월", "화", "수", "목", "금", "토", "일"],
+};

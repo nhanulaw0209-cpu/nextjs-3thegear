@@ -1,0 +1,40 @@
+{
+  "name": "nextjs-3thegear",
+  "version": "1.0.0",
+  "description": "3ThéGear Band - booking/event CMS",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "build:check": "npm run type-check && npm run lint && npm run build",
+    "db:seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "lucide-react": "^0.511.0",
+    "next": "14.2.35",
+    "nodemailer": "^9.0.3",
+    "prisma": "^5.22.0",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-hook-form": "^7.51.4",
+    "sharp": "^0.34.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/nodemailer": "^8.0.1",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.4.19",
+    "dotenv": "^17.3.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.35",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "tsx": "^4.19.0",
+    "typescript": "^5"
+  }
+}
