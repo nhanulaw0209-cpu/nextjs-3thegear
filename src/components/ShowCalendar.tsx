@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { generateShowSlots } from "@/lib/timeSlots";
 
 export type CalView = "year" | "month" | "week";
 
@@ -21,14 +22,13 @@ const STATUS_COLOR: Record<string, string> = {
   cancelled: "bg-gray-500",
 };
 
-// Day-cell fill only — kept at 70% opacity so the date/title text stays legible.
-// Written as literal class strings (not `${STATUS_COLOR[x]}/70`) so Tailwind's
-// JIT scanner actually picks them up.
+// Day-cell fill columns — one column per configured show-slot time, kept at 70%
+// opacity so the date/title text stays legible underneath. Written as literal
+// class strings (not `${STATUS_COLOR[x]}/70`) so Tailwind's JIT scanner picks
+// them up. "available"/"cancelled" don't occupy a slot, so they're left blank.
 const STATUS_CELL_BG: Record<string, string> = {
-  available: "bg-green-600/70",
   booked: "bg-red-600/70",
   pending: "bg-amber-600/70",
-  cancelled: "bg-gray-500/70",
 };
 
 export interface ShowCalendarLabels {
@@ -76,16 +76,6 @@ function slotsOnDate(slots: CalendarSlot[], y: number, m: number, d: number) {
   return slots.filter((s) => s.date === key);
 }
 
-const STATUS_PRIORITY = ["booked", "pending", "available", "cancelled"];
-
-function dominantStatus(daySlots: CalendarSlot[]): string | null {
-  if (daySlots.length === 0) return null;
-  for (const status of STATUS_PRIORITY) {
-    if (daySlots.some((s) => s.status === status)) return status;
-  }
-  return daySlots[0].status;
-}
-
 interface Props {
   slots: CalendarSlot[];
   onSelectSlot?: (slot: CalendarSlot) => void;
@@ -118,6 +108,18 @@ export default function ShowCalendar({ slots, onSelectSlot, hideCancelled, booka
   });
   const [selected, setSelected] = useState<CalendarSlot[] | null>(null);
   const [selectedLabel, setSelectedLabel] = useState("");
+  // Configured show-slot times (e.g. ["15:00","18:00","21:00"]) from admin-editable
+  // SiteSettings — each day cell is divided into one column per entry here.
+  const [showSlotTimes, setShowSlotTimes] = useState<string[]>([]);
+
+  useEffect(() => {
+    fetch("/api/settings")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data: { showSlotStart: string; showSlotEnd: string; showSlotStepMinutes: number } | null) => {
+        if (data) setShowSlotTimes(generateShowSlots(data.showSlotStart, data.showSlotEnd, data.showSlotStepMinutes));
+      })
+      .catch(() => {});
+  }, []);
 
   const visibleSlots = hideCancelled ? slots.filter((s) => s.status !== "cancelled") : slots;
 
@@ -225,34 +227,39 @@ export default function ShowCalendar({ slots, onSelectSlot, hideCancelled, booka
               const daySlots = slotsOnDate(visibleSlots, cellYear, cellMonth, d);
               const isToday = today.toDateString() === new Date(cellYear, cellMonth, d).toDateString();
               const isAdjacent = mo !== 0;
-              const dominant = dominantStatus(daySlots);
+              // One column per configured show-slot time — filled with that specific
+              // slot's status color when a booking occupies it, blank otherwise.
+              const slotColumns = showSlotTimes.map((time) => daySlots.find((s) => s.startTime === time) ?? null);
 
               let cellBg = "bg-white hover:bg-cream";
               if (isAdjacent) cellBg = "bg-cream/40";
-              else if (dominant) cellBg = `${STATUS_CELL_BG[dominant] ?? "bg-gray-300/70"} hover:brightness-95`;
               else if (isToday) cellBg = "bg-amber-50 hover:bg-cream";
-
-              const dayNumClass = dominant && !isAdjacent ? "text-white" : isToday ? "text-red" : "text-ink/70";
-              const titleClass = dominant && !isAdjacent ? "text-white" : "text-ink";
-              const overflowClass = dominant && !isAdjacent ? "text-white/80" : "text-text/50";
 
               return (
                 <button
                   key={`${mo}-${d}-${di}`}
                   onClick={() => selectDay(cellYear, cellMonth, d)}
-                  className={`min-h-[64px] p-1 text-left border rounded-lg transition-colors ${isAdjacent ? "border-border/40 opacity-40" : isToday ? "border-red" : "border-border"} ${cellBg}`}
+                  className={`relative overflow-hidden min-h-[64px] p-1 text-left border rounded-lg transition-colors ${isAdjacent ? "border-border/40 opacity-40" : isToday ? "border-red" : "border-border"} ${cellBg}`}
                 >
-                  <span className={`text-base font-semibold block mb-0.5 ${dayNumClass}`}>{d}</span>
-                  <div className="space-y-0.5">
+                  {!isAdjacent && slotColumns.length > 0 && (
+                    <div className="absolute inset-0 flex">
+                      {slotColumns.map((s, i) => (
+                        <div
+                          key={i}
+                          className={`flex-1 ${s && (s.status === "booked" || s.status === "pending") ? STATUS_CELL_BG[s.status] : ""}`}
+                        />
+                      ))}
+                    </div>
+                  )}
+                  <span className={`relative z-10 text-base font-semibold block mb-0.5 ${isToday ? "text-red" : "text-ink/70"}`}>{d}</span>
+                  <div className="relative z-10 space-y-0.5">
                     {daySlots.slice(0, 2).map((s) => (
                       <span key={s.id} className="flex items-center gap-1">
-                        {daySlots.length > 1 && dominant && s.status !== dominant && (
-                          <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ring-2 ring-white/70 ${STATUS_COLOR[s.status] ?? "bg-gray-300"}`} />
-                        )}
-                        <span className={`text-[13px] truncate leading-tight ${titleClass}`}>{s.event?.title ?? "-"}</span>
+                        <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ring-2 ring-white/70 ${STATUS_COLOR[s.status] ?? "bg-gray-300"}`} />
+                        <span className="text-[13px] truncate leading-tight text-ink">{s.event?.title ?? "-"}</span>
                       </span>
                     ))}
-                    {daySlots.length > 2 && <span className={`text-[13px] ${overflowClass}`}>+{daySlots.length - 2}</span>}
+                    {daySlots.length > 2 && <span className="text-[13px] text-text/50">+{daySlots.length - 2}</span>}
                   </div>
                 </button>
               );
