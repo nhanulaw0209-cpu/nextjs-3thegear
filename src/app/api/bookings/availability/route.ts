@@ -16,13 +16,22 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: "date is required" }, { status: 400 });
   }
 
-  const takenSlots = await prisma.showSchedule.findMany({
-    where: { date, status: { in: BLOCKING_STATUSES }, startTime: { not: null } },
-    select: { startTime: true },
-  });
+  const [takenSlots, settings] = await Promise.all([
+    prisma.showSchedule.findMany({
+      where: { date, status: { in: BLOCKING_STATUSES }, startTime: { not: null } },
+      select: { startTime: true },
+    }),
+    prisma.siteSettings.findUnique({ where: { id: "singleton" } }),
+  ]);
   const taken = new Set(takenSlots.map((s) => s.startTime));
 
-  const slots = generateShowSlots().map((time) => ({ time, available: !taken.has(time) }));
+  const showSlotStart = settings?.showSlotStart ?? "15:00";
+  const showSlotEnd = settings?.showSlotEnd ?? "21:00";
+  const showSlotStepMinutes = settings?.showSlotStepMinutes ?? 180;
+  const slots = generateShowSlots(showSlotStart, showSlotEnd, showSlotStepMinutes).map((time) => ({
+    time,
+    available: !taken.has(time),
+  }));
 
   return NextResponse.json({ date, slots }, { headers: { "Cache-Control": "no-store" } });
 }

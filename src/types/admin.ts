@@ -99,4 +99,7 @@ export interface SiteSettings {
   ownerPhotoUrl: string | null;
   contactPhone: string | null;
   contactEmail: string | null;
+  showSlotStart: string;
+  showSlotEnd: string;
+  showSlotStepMinutes: number;
 }

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { isValidShowSlot, timeToMinutes, minutesToTime, SHOW_SLOT_STEP_MINUTES } from "@/lib/timeSlots";
+import { isValidShowSlot, timeToMinutes, minutesToTime } from "@/lib/timeSlots";
 import { getMailer, FROM_EMAIL, NOTIFY_EMAIL } from "@/lib/mailer";
 import { bookingNotificationEmailHtml } from "@/lib/emailTemplates";
 
@@ -34,7 +34,13 @@ export async function POST(req: Request) {
   if (!eventId || !customerName || !customerPhone || !eventDate || !DATE_RE.test(eventDate)) {
     return NextResponse.json({ error: "Thiếu thông tin bắt buộc hoặc ngày không hợp lệ" }, { status: 400 });
   }
-  if (!eventTime || !isValidShowSlot(eventTime)) {
+
+  const settings = await prisma.siteSettings.findUnique({ where: { id: "singleton" } });
+  const showSlotStart = settings?.showSlotStart ?? "15:00";
+  const showSlotEnd = settings?.showSlotEnd ?? "21:00";
+  const showSlotStepMinutes = settings?.showSlotStepMinutes ?? 180;
+
+  if (!eventTime || !isValidShowSlot(eventTime, showSlotStart, showSlotEnd, showSlotStepMinutes)) {
     return NextResponse.json({ error: "Vui lòng chọn khung giờ hợp lệ" }, { status: 400 });
   }
   if (!Array.isArray(items) || items.length === 0) {
@@ -68,7 +74,7 @@ export async function POST(req: Request) {
   }
 
   const existingSlot = await prisma.showSchedule.findFirst({ where: { date: eventDate, startTime: eventTime } });
-  const endTime = minutesToTime(timeToMinutes(eventTime) + SHOW_SLOT_STEP_MINUTES);
+  const endTime = minutesToTime(timeToMinutes(eventTime) + showSlotStepMinutes);
 
   const lineItemsData = items.map((i) => {
     const item = listBuyItems.find((li) => li.id === i.listBuyItemId)!;

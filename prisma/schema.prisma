@@ -118,14 +118,17 @@ model Partner {
 }
 
 model SiteSettings {
-  id            String   @id @default("singleton")
-  bankName      String?
-  accountNumber String?
-  accountName   String?
-  qrImageUrl    String?
-  branch        String?
-  ownerPhotoUrl String?
-  contactPhone  String?
-  contactEmail  String?
-  updatedAt     DateTime @updatedAt
+  id                  String   @id @default("singleton")
+  bankName            String?
+  accountNumber       String?
+  accountName         String?
+  qrImageUrl          String?
+  branch              String?
+  ownerPhotoUrl       String?
+  contactPhone        String?
+  contactEmail        String?
+  showSlotStart       String   @default("15:00")
+  showSlotEnd         String   @default("21:00")
+  showSlotStepMinutes Int      @default(180)
+  updatedAt           DateTime @updatedAt
 }

@@ -21,6 +21,10 @@ export interface ServicePage {
   heroImage: string;
   tagline: T;
   intro: T;
+  // Specific bookable sub-services shown in the "Loại Dịch Vụ" selector on
+  // /calendar (QuickInquiryForm) — kept separate from `sections` below since
+  // those are free-form marketing content, not a fixed option list.
+  subServices: T[];
   sections: {
     heading: T;
     body?: T;
@@ -89,6 +93,16 @@ export const SERVICE_PAGES: ServicePage[] = [
       zh: "为各种规模的活动提供现场演出 - 从温馨的原声之夜到跨国企业（如保诚、横河、美敦力）的晚宴演出，皆能胜任。",
       ko: "모든 규모의 이벤트를 위한 라이브 밴드 - 아늑한 어쿠스틱 나이트부터 Prudential, Yokogawa, Medtronic 같은 다국적 기업의 갈라 디너까지.",
     },
+    subServices: [
+      { vi: "Duo Acoustic", en: "Duo Acoustic", ru: "Duo Acoustic", zh: "二人木吉他组合", ko: "듀오 어쿠스틱" },
+      {
+        vi: "Full Band (Nhiều Thể Loại)",
+        en: "Full Band (Multi-Genre)",
+        ru: "Полный состав (мульти-жанр)",
+        zh: "全乐队（多风格）",
+        ko: "풀 밴드 (다장르)",
+      },
+    ],
     sections: [
       {
         heading: {
@@ -195,6 +209,24 @@ export const SERVICE_PAGES: ServicePage[] = [
       zh: "专业运营的音响与舞台灯光系统，支持每一场3TG演出 - 从企业晚宴到大型户外舞台皆能胜任。",
       ko: "모든 3TG 공연을 뒷받침하는 전문 음향·무대 조명 시스템 - 기업 갈라부터 대형 야외 무대까지.",
     },
+    subServices: [
+      { vi: "Hệ thống âm thanh sân khấu", en: "Stage sound system", ru: "Звуковая система сцены", zh: "舞台音响系统", ko: "무대 음향 시스템" },
+      {
+        vi: "Ánh sáng sân khấu & hiệu ứng",
+        en: "Stage lighting & effects",
+        ru: "Сценическое освещение и эффекты",
+        zh: "舞台灯光与特效",
+        ko: "무대 조명 & 이펙트",
+      },
+      { vi: "Màn hình LED", en: "LED screens", ru: "LED-экраны", zh: "LED屏幕", ko: "LED 스크린" },
+      {
+        vi: "Thiết bị cho hội nghị / gala",
+        en: "Conference / gala equipment",
+        ru: "Оборудование для конференций / гала",
+        zh: "会议/晚宴设备",
+        ko: "컨퍼런스/갈라 장비",
+      },
+    ],
     sections: [
       {
         heading: { vi: "Hạng Mục", en: "Categories", ru: "Категории", zh: "服务项目", ko: "항목" },
@@ -342,6 +374,17 @@ export const SERVICE_PAGES: ServicePage[] = [
       zh: "为您的活动进行拍摄与内容制作 - 涵盖现场纪实、活动后回顾视频及直播。",
       ko: "이벤트를 위한 촬영 및 콘텐츠 제작 - 현장 미디어부터 행사 후 리캡 영상, 라이브 스트리밍까지.",
     },
+    subServices: [
+      {
+        vi: "Media / quay chụp sự kiện",
+        en: "Event media / photography",
+        ru: "Медиа / фотосъёмка мероприятия",
+        zh: "活动媒体/摄影",
+        ko: "이벤트 미디어/촬영",
+      },
+      { vi: "Recap sau sự kiện", en: "Post-event recap", ru: "Пост-репортаж", zh: "活动后回顾", ko: "행사 후 리캡" },
+      { vi: "Livestream trực tiếp", en: "Live streaming", ru: "Прямая трансляция", zh: "直播", ko: "라이브 스트리밍" },
+    ],
     sections: [
       {
         heading: { vi: "Hạng Mục", en: "Categories", ru: "Категории", zh: "服务项目", ko: "항목" },

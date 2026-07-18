@@ -21,6 +21,16 @@ const STATUS_COLOR: Record<string, string> = {
   cancelled: "bg-gray-500",
 };
 
+// Day-cell fill only — kept at 70% opacity so the date/title text stays legible.
+// Written as literal class strings (not `${STATUS_COLOR[x]}/70`) so Tailwind's
+// JIT scanner actually picks them up.
+const STATUS_CELL_BG: Record<string, string> = {
+  available: "bg-green-600/70",
+  booked: "bg-red-600/70",
+  pending: "bg-amber-600/70",
+  cancelled: "bg-gray-500/70",
+};
+
 export interface ShowCalendarLabels {
   statusAvailable: string;
   statusBooked: string;
@@ -219,7 +229,7 @@ export default function ShowCalendar({ slots, onSelectSlot, hideCancelled, booka
 
               let cellBg = "bg-white hover:bg-cream";
               if (isAdjacent) cellBg = "bg-cream/40";
-              else if (dominant) cellBg = `${STATUS_COLOR[dominant] ?? "bg-gray-300"} hover:brightness-95`;
+              else if (dominant) cellBg = `${STATUS_CELL_BG[dominant] ?? "bg-gray-300/70"} hover:brightness-95`;
               else if (isToday) cellBg = "bg-amber-50 hover:bg-cream";
 
               const dayNumClass = dominant && !isAdjacent ? "text-white" : isToday ? "text-red" : "text-ink/70";

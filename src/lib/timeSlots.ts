@@ -1,8 +1,6 @@
-// Fixed daily show slots, 3 hours apart — the band can only play one show per slot,
+// Daily show slots — admin-configurable via SiteSettings (showSlotStart/showSlotEnd/
+// showSlotStepMinutes), not hardcoded. The band can only play one show per slot,
 // regardless of which service category (Event) it's booked under.
-export const SHOW_SLOT_START = "09:00";
-export const SHOW_SLOT_END = "21:00";
-export const SHOW_SLOT_STEP_MINUTES = 180;
 
 export function timeToMinutes(hhmm: string): number {
   const [h, m] = hhmm.split(":").map(Number);
@@ -15,14 +13,14 @@ export function minutesToTime(mins: number): string {
   return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
 }
 
-export function generateShowSlots(): string[] {
-  const start = timeToMinutes(SHOW_SLOT_START);
-  const end = timeToMinutes(SHOW_SLOT_END);
+export function generateShowSlots(start: string, end: string, stepMinutes: number): string[] {
+  const startMins = timeToMinutes(start);
+  const endMins = timeToMinutes(end);
   const out: string[] = [];
-  for (let t = start; t <= end; t += SHOW_SLOT_STEP_MINUTES) out.push(minutesToTime(t));
+  for (let t = startMins; t <= endMins; t += stepMinutes) out.push(minutesToTime(t));
   return out;
 }
 
-export function isValidShowSlot(time: string): boolean {
-  return generateShowSlots().includes(time);
+export function isValidShowSlot(time: string, start: string, end: string, stepMinutes: number): boolean {
+  return generateShowSlots(start, end, stepMinutes).includes(time);
 }

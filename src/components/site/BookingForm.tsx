@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { useLang } from "@/lib/lang-context";
@@ -22,8 +22,6 @@ interface FormValues {
   notes: string;
 }
 
-const SHOW_SLOTS = generateShowSlots();
-
 function formatVnd(n: number) {
   return n.toLocaleString("vi-VN") + "đ";
 }
@@ -41,6 +39,17 @@ export default function BookingForm({ eventId, listBuyItems }: { eventId: string
   const [error, setError] = useState("");
   // Slot availability for the selected date ("09:00" -> true/false).
   const [slotAvailability, setSlotAvailability] = useState<Record<string, boolean>>({});
+  // Show slot times — admin-configurable via SiteSettings, fetched instead of hardcoded.
+  const [showSlots, setShowSlots] = useState<string[]>([]);
+
+  useEffect(() => {
+    fetch("/api/settings")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data: { showSlotStart: string; showSlotEnd: string; showSlotStepMinutes: number } | null) => {
+        if (data) setShowSlots(generateShowSlots(data.showSlotStart, data.showSlotEnd, data.showSlotStepMinutes));
+      })
+      .catch(() => {});
+  }, []);
 
   const selectedItems = listBuyItems.filter((li) => (quantities[li.id] ?? 0) > 0);
   const total = selectedItems.reduce((sum, li) => sum + li.price * (quantities[li.id] ?? 0), 0);
@@ -153,7 +162,7 @@ export default function BookingForm({ eventId, listBuyItems }: { eventId: string
         <Field label={t("eventTimeLabel")} error={errors.eventTime}>
           <select {...register("eventTime", { required: true })} className={inputClass} defaultValue="">
             <option value="" disabled>{t("eventTimeOptionSelect")}</option>
-            {SHOW_SLOTS.map((time) => {
+            {showSlots.map((time) => {
               const available = slotAvailability[time];
               const full = available === false;
               return (

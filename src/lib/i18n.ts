@@ -258,6 +258,8 @@ export const UI_STRINGS = {
   },
   serviceTypeProduction: { vi: "3TG Production", en: "3TG Production", ru: "3TG Production", zh: "3TG Production", ko: "3TG Production" },
   serviceTypeEvent: { vi: "3TG Event (Trọn Gói)", en: "3TG Event (Full-Service)", ru: "3TG Event (Полный цикл)", zh: "3TG Event（全套）", ko: "3TG Event (토탈 패키지)" },
+  addServiceLabel: { vi: "+ Thêm Dịch Vụ", en: "+ Add Service", ru: "+ Добавить услугу", zh: "+ 添加服务", ko: "+ 서비스 추가" },
+  removeServiceLabel: { vi: "Xóa", en: "Remove", ru: "Удалить", zh: "移除", ko: "삭제" },
 } as const;
 
 export const MONTHS_BY_LANG: Record<string, string[]> = {

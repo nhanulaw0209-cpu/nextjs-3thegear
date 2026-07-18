@@ -4,7 +4,19 @@ import { useEffect, useState, useCallback } from "react";
 import { SiteSettings } from "@/types/admin";
 import ImageUploadField from "./ImageUploadField";
 
-const EMPTY = { bankName: "", accountNumber: "", accountName: "", qrImageUrl: "", branch: "", ownerPhotoUrl: "", contactPhone: "", contactEmail: "" };
+const EMPTY = {
+  bankName: "",
+  accountNumber: "",
+  accountName: "",
+  qrImageUrl: "",
+  branch: "",
+  ownerPhotoUrl: "",
+  contactPhone: "",
+  contactEmail: "",
+  showSlotStart: "15:00",
+  showSlotEnd: "21:00",
+  showSlotStepMinutes: 180,
+};
 
 export default function SettingsTab() {
   const [form, setForm] = useState(EMPTY);
@@ -24,6 +36,9 @@ export default function SettingsTab() {
         ownerPhotoUrl: data.ownerPhotoUrl ?? "",
         contactPhone: data.contactPhone ?? "",
         contactEmail: data.contactEmail ?? "",
+        showSlotStart: data.showSlotStart ?? "15:00",
+        showSlotEnd: data.showSlotEnd ?? "21:00",
+        showSlotStepMinutes: data.showSlotStepMinutes ?? 180,
       });
     }
     setLoading(false);
@@ -77,6 +92,43 @@ export default function SettingsTab() {
         </Field>
         <Field label="Email liên hệ">
           <input value={form.contactEmail} onChange={(e) => setForm({ ...form, contactEmail: e.target.value })} className={inputClass} />
+        </Field>
+        <button type="submit" className="px-4 py-2 text-xs font-bold uppercase tracking-wide bg-ink text-white hover:bg-red transition-colors">
+          Lưu cài đặt
+        </button>
+        {saved && <span className="ml-3 text-xs text-green-700 font-semibold">Đã lưu.</span>}
+      </form>
+
+      <h2 className="font-jost text-xl font-bold text-ink pt-4">Khung Giờ Đặt Show</h2>
+      <p className="text-sm text-text max-w-lg">
+        Các ca giờ khách có thể chọn khi đặt lịch (VD: 15:00, 18:00, 21:00). Đổi ở đây thì form đặt lịch và trang /calendar tự cập nhật theo.
+      </p>
+      <form onSubmit={handleSubmit} className="bg-white border border-border p-5 space-y-4 max-w-lg">
+        <Field label="Giờ bắt đầu">
+          <input
+            type="time"
+            value={form.showSlotStart}
+            onChange={(e) => setForm({ ...form, showSlotStart: e.target.value })}
+            className={inputClass}
+          />
+        </Field>
+        <Field label="Giờ kết thúc">
+          <input
+            type="time"
+            value={form.showSlotEnd}
+            onChange={(e) => setForm({ ...form, showSlotEnd: e.target.value })}
+            className={inputClass}
+          />
+        </Field>
+        <Field label="Khoảng cách mỗi ca (phút)">
+          <input
+            type="number"
+            min={30}
+            step={30}
+            value={form.showSlotStepMinutes}
+            onChange={(e) => setForm({ ...form, showSlotStepMinutes: Number(e.target.value) })}
+            className={inputClass}
+          />
         </Field>
         <button type="submit" className="px-4 py-2 text-xs font-bold uppercase tracking-wide bg-ink text-white hover:bg-red transition-colors">
           Lưu cài đặt

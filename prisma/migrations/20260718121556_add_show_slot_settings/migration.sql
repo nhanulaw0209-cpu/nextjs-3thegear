@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "SiteSettings" ADD COLUMN     "showSlotEnd" TEXT NOT NULL DEFAULT '21:00',
+ADD COLUMN     "showSlotStart" TEXT NOT NULL DEFAULT '15:00',
+ADD COLUMN     "showSlotStepMinutes" INTEGER NOT NULL DEFAULT 180;
