@@ -5,6 +5,8 @@ export type AdminTab =
   | "bookings"
   | "gallery"
   | "partners"
+  | "reviews"
+  | "feedback"
   | "settings";
 
 export interface Event {
@@ -87,6 +89,27 @@ export interface Partner {
   sinceYear: number | null;
   sortOrder: number;
   isActive: boolean;
+}
+
+export interface Review {
+  id: string;
+  customerName: string;
+  quote: string;
+  rating: number;
+  eventType: string | null;
+  avatarUrl: string | null;
+  sortOrder: number;
+  isActive: boolean;
+}
+
+export interface NegativeFeedback {
+  id: string;
+  customerName: string;
+  rating: number;
+  comment: string;
+  eventType: string | null;
+  resolved: boolean;
+  createdAt: string;
 }
 
 export interface SiteSettings {

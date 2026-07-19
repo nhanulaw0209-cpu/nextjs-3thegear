@@ -11,6 +11,7 @@ export const NAV_ORDER = [
   { href: "/dich-vu", key: "navServices" as const },
   { href: "/doi-tac", key: "navPartners" as const },
   { href: "/gallery", key: "navGallery" as const },
+  { href: "/danh-gia", key: "navReviews" as const },
   { href: "/calendar", key: "navBook" as const },
 ];
 

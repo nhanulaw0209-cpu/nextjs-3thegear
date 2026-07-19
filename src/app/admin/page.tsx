@@ -10,6 +10,8 @@ import EventsTab from "@/components/admin/EventsTab";
 import BookingsTab from "@/components/admin/BookingsTab";
 import GalleryTab from "@/components/admin/GalleryTab";
 import PartnersTab from "@/components/admin/PartnersTab";
+import ReviewsTab from "@/components/admin/ReviewsTab";
+import FeedbackTab from "@/components/admin/FeedbackTab";
 import ScheduleTab from "@/components/admin/ScheduleTab";
 import SettingsTab from "@/components/admin/SettingsTab";
 import { AdminTab } from "@/types/admin";
@@ -21,6 +23,8 @@ const TAB_TITLES: Record<AdminTab, string> = {
   bookings: "Đặt Lịch",
   gallery: "Gallery",
   partners: "Đối Tác",
+  reviews: "Đánh Giá",
+  feedback: "Góp Ý Riêng",
   settings: "Cài Đặt",
 };
 
@@ -127,6 +131,8 @@ function AdminPage() {
           {activeTab === "bookings" && <BookingsTab />}
           {activeTab === "gallery" && <GalleryTab />}
           {activeTab === "partners" && <PartnersTab />}
+          {activeTab === "reviews" && <ReviewsTab />}
+          {activeTab === "feedback" && <FeedbackTab />}
           {activeTab === "settings" && <SettingsTab />}
         </div>
       </div>

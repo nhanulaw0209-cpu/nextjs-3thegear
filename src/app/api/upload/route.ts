@@ -13,7 +13,7 @@ const ALLOWED_TYPES = [
   "video/webm",
 ];
 const MAX_SIZE = 50 * 1024 * 1024; // 50MB
-const ALLOWED_CATEGORIES = ["partners", "events", "gallery", "settings"];
+const ALLOWED_CATEGORIES = ["partners", "events", "gallery", "settings", "reviews"];
 
 export async function POST(req: NextRequest) {
   const formData = await req.formData();

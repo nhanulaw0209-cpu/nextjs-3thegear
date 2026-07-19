@@ -117,6 +117,31 @@ model Partner {
   isActive  Boolean @default(true)
 }
 
+model Review {
+  id           String   @id @default(cuid())
+  customerName String
+  quote        String
+  rating       Int      @default(5)
+  eventType    String?
+  avatarUrl    String?
+  sortOrder    Int      @default(0)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+}
+
+// Captured from the 1-3 star branch of the /danh-gia review gate — kept
+// private (never shown on the public site) so unhappy customers get routed to
+// Zalo for direct resolution instead of posting publicly on Google.
+model NegativeFeedback {
+  id           String   @id @default(cuid())
+  customerName String   @default("Khách")
+  rating       Int
+  comment      String
+  eventType    String?
+  resolved     Boolean  @default(false)
+  createdAt    DateTime @default(now())
+}
+
 model SiteSettings {
   id                  String   @id @default("singleton")
   bankName            String?

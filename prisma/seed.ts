@@ -207,6 +207,40 @@ async function main() {
     }
   }
 
+  // Demo reviews shown until the band collects real customer testimonials.
+  const seedReviews = [
+    {
+      customerName: "Minh Anh & Gia Bảo",
+      quote:
+        "Dear Band và Bo, cám ơn mọi người đã đến và chơi những bản nhạc thật hay cho tiệc cưới của tụi mình. Cám ơn Band thật nhiều.",
+      rating: 5,
+      eventType: "Tiệc cưới",
+      sortOrder: 1,
+    },
+    {
+      customerName: "Chị Thu Hà",
+      quote:
+        "Ban nhạc chuyên nghiệp, đúng giờ, âm thanh ánh sáng setup rất đẹp. Khách dự tiệc ai cũng khen chương trình sôi động.",
+      rating: 5,
+      eventType: "Sự kiện doanh nghiệp",
+      sortOrder: 2,
+    },
+    {
+      customerName: "Anh Quốc Huy",
+      quote:
+        "Đội ngũ 3TG hỗ trợ tư vấn nhiệt tình từ khâu chọn setlist đến lắp đặt sân khấu. Chắc chắn sẽ hợp tác lại cho các sự kiện sau.",
+      rating: 5,
+      eventType: "Tiệc VIP",
+      sortOrder: 3,
+    },
+  ];
+  for (const r of seedReviews) {
+    const existing = await prisma.review.findFirst({ where: { customerName: r.customerName } });
+    if (!existing) {
+      await prisma.review.create({ data: r });
+    }
+  }
+
   // Populate the Gallery with real photos already on hand from the original photo shoot.
   const seedGalleryPhotos = [
     "photo-26.jpg", "photo-30.jpg", "photo-34.jpg", "photo-36.jpg", "photo-37.jpg",
