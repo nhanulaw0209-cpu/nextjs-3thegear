@@ -16,6 +16,11 @@ RUN npx prisma generate
 
 COPY . .
 
+# Next.js inlines NEXT_PUBLIC_* vars at build time, so it must be passed as a
+# build arg (not just a runtime env var in docker-compose) to take effect.
+ARG NEXT_PUBLIC_GOOGLE_REVIEW_URL
+ENV NEXT_PUBLIC_GOOGLE_REVIEW_URL=$NEXT_PUBLIC_GOOGLE_REVIEW_URL
+
 RUN npm run build
 
 EXPOSE 3000
