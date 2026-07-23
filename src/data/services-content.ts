@@ -25,6 +25,12 @@ export interface ServicePage {
   // /calendar (QuickInquiryForm) — kept separate from `sections` below since
   // those are free-form marketing content, not a fixed option list.
   subServices: T[];
+  // Slug of the DB Event this group page books through (real priced packages
+  // + calendar booking form), if any. When set, /dich-vu/[slug]/page.tsx
+  // fetches that Event and renders its live packages + BookingForm directly
+  // on this page instead of the Event needing its own separate /events/[slug]
+  // listing under the "3TG Event" group.
+  bookableEventSlug?: string;
   sections: {
     heading: T;
     body?: T;
@@ -284,6 +290,7 @@ export const SERVICE_PAGES: ServicePage[] = [
     slug: "sound-lighting",
     label: "3TG Sound & Lighting",
     heroImage: "/3thegear-photos/img/photo-64.jpg",
+    bookableEventSlug: "cung-cap-am-thanh-anh-sang",
     tagline: {
       vi: "Hệ Thống Âm Thanh & Ánh Sáng Chuyên Nghiệp",
       en: "Professional Sound & Lighting Systems",
@@ -355,168 +362,6 @@ export const SERVICE_PAGES: ServicePage[] = [
             "범선 모양 무대 - Bamboo Village Resort",
             "Medtronic & Yokogawa 갈라 디너 - 풀 LED 무대 시스템",
           ],
-        },
-      },
-      {
-        heading: { vi: "Bảng Giá Tham Khảo", en: "Reference Pricing", ru: "Ориентировочные цены", zh: "参考报价", ko: "참고 견적" },
-        packages: [
-          {
-            name: {
-              vi: "Gói Ưu Đãi 2tr5",
-              en: "2.5M VND Special Package",
-              ru: "Специальный пакет 2,5 млн",
-              zh: "250万特惠套餐",
-              ko: "250만동 특가 패키지",
-            },
-            price: {
-              vi: "2.500.000đ / show",
-              en: "2,500,000 VND / show",
-              ru: "2 500 000 донгов / шоу",
-              zh: "250万越南盾 / 场",
-              ko: "250만 동 / 공연",
-            },
-            includes: {
-              vi: ["1 cặp loa Full HT-Sound 1200W", "1 loa Sub RCF 850W", "1 cặp micro Morgan MG35", "1 mixer Dynacort CMS600", "1 soundman kiêm phát nhạc"],
-              en: ["1 pair HT-Sound 1200W speakers", "1 RCF 850W subwoofer", "1 pair Morgan MG35 microphones", "1 Dynacort CMS600 mixer", "1 soundman/music operator"],
-              ru: ["1 пара колонок HT-Sound 1200 Вт", "1 сабвуфер RCF 850 Вт", "1 пара микрофонов Morgan MG35", "1 микшер Dynacort CMS600", "1 звукооператор"],
-              zh: ["1对HT-Sound 1200W音箱", "1个RCF 850W低音炮", "1对Morgan MG35麦克风", "1台Dynacort CMS600调音台", "1名音响师兼放歌"],
-              ko: ["HT-Sound 1200W 스피커 1쌍", "RCF 850W 서브우퍼 1대", "Morgan MG35 마이크 1쌍", "Dynacort CMS600 믹서 1대", "사운드맨 겸 음악 재생 1인"],
-            },
-            suited: {
-              vi: "Phù hợp sự kiện ngoài trời tối đa 150-200 khách.",
-              en: "Suited to outdoor events up to 150-200 guests.",
-              ru: "Подходит для мероприятий на открытом воздухе до 150-200 гостей.",
-              zh: "适合150-200人以内的户外活动。",
-              ko: "150-200명 이하 야외 행사에 적합.",
-            },
-          },
-          {
-            name: { vi: "Option 2", en: "Option 2", ru: "Option 2", zh: "Option 2", ko: "Option 2" },
-            price: {
-              vi: "4.000.000đ / show",
-              en: "4,000,000 VND / show",
-              ru: "4 000 000 донгов / шоу",
-              zh: "400万越南盾 / 场",
-              ko: "400만 동 / 공연",
-            },
-            includes: {
-              vi: ["1 cặp loa Full HT-Sound 1200W", "1 cặp loa Sub 50 RCF 850W", "1 cặp micro Morgan MG35", "1 mixer Midas M32R", "1 soundman + laptop phát nhạc", "1 in-ear cho ca sĩ hát beat"],
-              en: ["1 pair HT-Sound 1200W full speakers", "1 pair Sub 50 RCF 850W subwoofers", "1 pair Morgan MG35 microphones", "1 Midas M32R mixer", "1 soundman + music laptop", "1 in-ear for singer"],
-              ru: ["1 пара колонок HT-Sound 1200 Вт", "1 пара сабвуферов Sub 50 RCF 850 Вт", "1 пара микрофонов Morgan MG35", "1 микшер Midas M32R", "1 звукооператор + ноутбук", "1 in-ear для вокалиста"],
-              zh: ["1对HT-Sound 1200W全频音箱", "1对Sub 50 RCF 850W低音炮", "1对Morgan MG35麦克风", "1台Midas M32R调音台", "1名音响师+放歌笔记本", "1个歌手返听耳机"],
-              ko: ["HT-Sound 1200W 풀레인지 스피커 1쌍", "Sub 50 RCF 850W 서브우퍼 1쌍", "Morgan MG35 마이크 1쌍", "Midas M32R 믹서 1대", "사운드맨 + 음악 노트북 1인", "가수용 인이어 1개"],
-            },
-            suited: {
-              vi: "Phù hợp sự kiện 300-500 khách.",
-              en: "Suited to events of 300-500 guests.",
-              ru: "Подходит для мероприятий на 300-500 гостей.",
-              zh: "适合300-500人的活动。",
-              ko: "300-500명 행사에 적합.",
-            },
-          },
-          {
-            name: { vi: "Option 3", en: "Option 3", ru: "Option 3", zh: "Option 3", ko: "Option 3" },
-            price: {
-              vi: "5.000.000đ / show",
-              en: "5,000,000 VND / show",
-              ru: "5 000 000 донгов / шоу",
-              zh: "500万越南盾 / 场",
-              ko: "500만 동 / 공연",
-            },
-            includes: {
-              vi: ["1 cặp loa Full HT-Sound 1200W", "1 cặp loa Sub 50 RCF 850W", "1 cặp monitor sân khấu 850W", "1 cặp micro Morgan MG35", "1 mixer Midas M32R", "1 soundman + laptop, 1 in-ear ca sĩ"],
-              en: ["1 pair HT-Sound 1200W full speakers", "1 pair Sub 50 RCF 850W subwoofers", "1 pair 850W stage monitors", "1 pair Morgan MG35 microphones", "1 Midas M32R mixer", "1 soundman + laptop, 1 in-ear"],
-              ru: ["1 пара колонок HT-Sound 1200 Вт", "1 пара сабвуферов Sub 50 RCF 850 Вт", "1 пара сценических мониторов 850 Вт", "1 пара микрофонов Morgan MG35", "1 микшер Midas M32R", "1 звукооператор + ноутбук, 1 in-ear"],
-              zh: ["1对HT-Sound 1200W全频音箱", "1对Sub 50 RCF 850W低音炮", "1对850W舞台返听音箱", "1对Morgan MG35麦克风", "1台Midas M32R调音台", "1名音响师+笔记本，1个返听耳机"],
-              ko: ["HT-Sound 1200W 풀레인지 스피커 1쌍", "Sub 50 RCF 850W 서브우퍼 1쌍", "850W 무대 모니터 1쌍", "Morgan MG35 마이크 1쌍", "Midas M32R 믹서 1대", "사운드맨 + 노트북, 인이어 1개"],
-            },
-            suited: {
-              vi: "Phù hợp sự kiện 300-500 khách, có monitor cho ca sĩ.",
-              en: "Suited to 300-500 guests, with stage monitors.",
-              ru: "Подходит для 300-500 гостей, со сценическими мониторами.",
-              zh: "适合300-500人，配备舞台返听。",
-              ko: "300-500명, 무대 모니터 포함.",
-            },
-          },
-          {
-            name: { vi: "Option 4", en: "Option 4", ru: "Option 4", zh: "Option 4", ko: "Option 4" },
-            price: {
-              vi: "5.500.000đ / show",
-              en: "5,500,000 VND / show",
-              ru: "5 500 000 донгов / шоу",
-              zh: "550万越南盾 / 场",
-              ko: "550만 동 / 공연",
-            },
-            includes: {
-              vi: ["2 cặp Line Array HT-Sound 1250W", "1 cặp loa Sub 50 RCF 850W", "1 cặp monitor sân khấu 850W", "1 mixer Midas M32R", "1 tủ nguồn cho toàn hệ thống", "1 soundman + laptop, 2 in-ear ca sĩ"],
-              en: ["2 pairs HT-Sound 1250W line array", "1 pair Sub 50 RCF 850W subwoofers", "1 pair 850W stage monitors", "1 Midas M32R mixer", "1 power distribution rack", "1 soundman + laptop, 2 in-ears"],
-              ru: ["2 пары линейного массива HT-Sound 1250 Вт", "1 пара сабвуферов Sub 50 RCF 850 Вт", "1 пара сценических мониторов 850 Вт", "1 микшер Midas M32R", "1 стойка электропитания", "1 звукооператор + ноутбук, 2 in-ear"],
-              zh: ["2对HT-Sound 1250W线阵音箱", "1对Sub 50 RCF 850W低音炮", "1对850W舞台返听音箱", "1台Midas M32R调音台", "1个全系统供电机柜", "1名音响师+笔记本，2个返听耳机"],
-              ko: ["HT-Sound 1250W 라인어레이 2쌍", "Sub 50 RCF 850W 서브우퍼 1쌍", "850W 무대 모니터 1쌍", "Midas M32R 믹서 1대", "전체 시스템 전원 랙 1대", "사운드맨 + 노트북, 인이어 2개"],
-            },
-            suited: {
-              vi: "Phù hợp sự kiện 500-700 khách với dàn Line Array.",
-              en: "Suited to 500-700 guests with a line array system.",
-              ru: "Подходит для 500-700 гостей с линейным массивом.",
-              zh: "适合500-700人，配备线阵系统。",
-              ko: "500-700명, 라인어레이 시스템.",
-            },
-          },
-          {
-            name: { vi: "Option 5", en: "Option 5", ru: "Option 5", zh: "Option 5", ko: "Option 5" },
-            price: {
-              vi: "7.500.000đ / show",
-              en: "7,500,000 VND / show",
-              ru: "7 500 000 донгов / шоу",
-              zh: "750万越南盾 / 场",
-              ko: "750만 동 / 공연",
-            },
-            includes: {
-              vi: ["4 loa Full HT-Sound 1200W", "4 loa Sub 50 RCF 850W", "4 loa monitor sân khấu 850W", "1 mixer Midas M32R", "1 tủ nguồn cho toàn hệ thống", "2 soundman + laptop, 2 in-ear ca sĩ"],
-              en: ["4 HT-Sound 1200W full speakers", "4 Sub 50 RCF 850W subwoofers", "4 850W stage monitors", "1 Midas M32R mixer", "1 power distribution rack", "2 soundmen + laptop, 2 in-ears"],
-              ru: ["4 колонки HT-Sound 1200 Вт", "4 сабвуфера Sub 50 RCF 850 Вт", "4 сценических монитора 850 Вт", "1 микшер Midas M32R", "1 стойка электропитания", "2 звукооператора + ноутбук, 2 in-ear"],
-              zh: ["4只HT-Sound 1200W全频音箱", "4只Sub 50 RCF 850W低音炮", "4只850W舞台返听音箱", "1台Midas M32R调音台", "1个全系统供电机柜", "2名音响师+笔记本，2个返听耳机"],
-              ko: ["HT-Sound 1200W 풀레인지 스피커 4대", "Sub 50 RCF 850W 서브우퍼 4대", "850W 무대 모니터 4대", "Midas M32R 믹서 1대", "전체 시스템 전원 랙 1대", "사운드맨 2인 + 노트북, 인이어 2개"],
-            },
-            suited: {
-              vi: "Phù hợp sự kiện lớn 700-800 khách.",
-              en: "Suited to large events of 700-800 guests.",
-              ru: "Подходит для крупных мероприятий на 700-800 гостей.",
-              zh: "适合700-800人的大型活动。",
-              ko: "700-800명 대형 행사에 적합.",
-            },
-          },
-          {
-            name: { vi: "Option 6", en: "Option 6", ru: "Option 6", zh: "Option 6", ko: "Option 6" },
-            price: {
-              vi: "5.500.000đ / show",
-              en: "5,500,000 VND / show",
-              ru: "5 500 000 донгов / шоу",
-              zh: "550万越南盾 / 场",
-              ko: "550만 동 / 공연",
-            },
-            includes: {
-              vi: ["1 cặp Full RCF 715 750W", "1 cặp Sub FPT 18SA 500W", "1 cặp monitor FPT XLITE112", "1 cặp micro SoundDX S800", "1 mixer Behringer Wingrack", "1 tủ nguồn, 1 soundman + laptop"],
-              en: ["1 pair RCF 715 750W full speakers", "1 pair FPT 18SA 500W subwoofers", "1 pair FPT XLITE112 monitors", "1 pair SoundDX S800 microphones", "1 Behringer Wingrack mixer", "1 power rack, 1 soundman + laptop"],
-              ru: ["1 пара колонок RCF 715 750 Вт", "1 пара сабвуферов FPT 18SA 500 Вт", "1 пара мониторов FPT XLITE112", "1 пара микрофонов SoundDX S800", "1 микшер Behringer Wingrack", "1 стойка питания, 1 звукооператор + ноутбук"],
-              zh: ["1对RCF 715 750W全频音箱", "1对FPT 18SA 500W低音炮", "1对FPT XLITE112返听音箱", "1对SoundDX S800麦克风", "1台Behringer Wingrack调音台", "1个供电机柜，1名音响师+笔记本"],
-              ko: ["RCF 715 750W 풀레인지 스피커 1쌍", "FPT 18SA 500W 서브우퍼 1쌍", "FPT XLITE112 모니터 1쌍", "SoundDX S800 마이크 1쌍", "Behringer Wingrack 믹서 1대", "전원 랙 1대, 사운드맨 + 노트북"],
-            },
-            suited: {
-              vi: "Phù hợp sự kiện ~500 khách (dòng thiết bị RCF/FPT/Behringer).",
-              en: "Suited to ~500 guests (RCF/FPT/Behringer gear line).",
-              ru: "Подходит для ~500 гостей (оборудование RCF/FPT/Behringer).",
-              zh: "适合约500人（RCF/FPT/Behringer设备线）。",
-              ko: "약 500명 (RCF/FPT/Behringer 장비 라인).",
-            },
-          },
-        ],
-        note: {
-          vi: "Giá đã bao gồm nhân sự, vận chuyển nội thành, setup & vận hành; chưa bao gồm VAT. Sự kiện trên 800 khách hoặc yêu cầu đặc biệt: liên hệ hotline/Zalo để được báo giá riêng.",
-          en: "Prices include staff, in-city transport, setup & operation; VAT not included. Events over 800 guests or special requirements: contact us via hotline/Zalo for a custom quote.",
-          ru: "Цены включают персонал, доставку по городу, монтаж и обслуживание; НДС не включён. Мероприятия свыше 800 гостей или особые требования: свяжитесь по горячей линии/Zalo для индивидуального расчёта.",
-          zh: "价格已含人员、市内运输、安装与运营；不含增值税。800人以上活动或特殊需求：请通过热线/Zalo联系获取专属报价。",
-          ko: "가격에는 인력, 시내 운송, 설치 및 운영이 포함됩니다(VAT 별도). 800명 이상 행사나 특별 요청은 핫라인/Zalo로 문의해 주세요.",
         },
       },
       {

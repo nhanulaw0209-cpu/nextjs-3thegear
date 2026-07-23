@@ -3,6 +3,17 @@
 import Link from "next/link";
 import { useLang } from "@/lib/lang-context";
 import { SERVICE_PAGES, EVENT_GROUP, ServicePage } from "@/data/services-content";
+import BookingForm from "@/components/site/BookingForm";
+
+function formatVnd(n: number) {
+  return n.toLocaleString("vi-VN") + "đ";
+}
+
+interface BookableEvent {
+  id: string;
+  listBuyItems: { id: string; name: string; price: number }[];
+  setlistItems: { title: string; artist: string | null }[];
+}
 
 const GROUP_ORDER = [...SERVICE_PAGES, EVENT_GROUP].map((g) => ({ slug: g.slug, label: g.label }));
 
@@ -50,7 +61,7 @@ interface EventSummary {
 
 type Props =
   | { variant: "event"; events: EventSummary[] }
-  | { variant: "service"; page: ServicePage };
+  | { variant: "service"; page: ServicePage; bookableEvent: BookableEvent | null };
 
 export default function ServiceDetailClient(props: Props) {
   const { lang, t } = useLang();
@@ -100,7 +111,7 @@ export default function ServiceDetailClient(props: Props) {
     );
   }
 
-  const { page } = props;
+  const { page, bookableEvent } = props;
 
   return (
     <main className="min-h-screen bg-white">
@@ -162,6 +173,41 @@ export default function ServiceDetailClient(props: Props) {
           </section>
         ))}
 
+        {bookableEvent && bookableEvent.listBuyItems.length > 0 && (
+          <section className="mt-12">
+            <h2 className="font-jost text-xl font-bold text-ink mb-5">{t("listBuyHeading")}</h2>
+            <div className="border border-border divide-y divide-border rounded-2xl overflow-hidden">
+              {bookableEvent.listBuyItems.map((item) => (
+                <div key={item.id} className="flex items-center justify-between gap-4 p-4">
+                  <span className="text-lg text-ink">{item.name}</span>
+                  <span className="font-jost text-lg font-bold text-red whitespace-nowrap">{formatVnd(item.price)}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {bookableEvent && bookableEvent.setlistItems.length > 0 && (
+          <section className="mt-12">
+            <h2 className="font-jost text-xl font-bold text-ink mb-5">{t("equipmentHeading")}</h2>
+            <div className="border border-border divide-y divide-border rounded-2xl overflow-hidden">
+              {bookableEvent.setlistItems.map((item) => (
+                <div key={item.title} className="flex items-center justify-between gap-4 p-4">
+                  <span className="text-lg text-ink">{item.title}</span>
+                  {item.artist && <span className="text-base text-text whitespace-nowrap">{item.artist}</span>}
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {bookableEvent && bookableEvent.listBuyItems.length > 0 && (
+          <section className="mt-12">
+            <h2 className="font-jost text-xl font-bold text-ink mb-5">{t("bookingHeading")}</h2>
+            <BookingForm eventId={bookableEvent.id} listBuyItems={bookableEvent.listBuyItems} />
+          </section>
+        )}
+
         {page.testimonial && (
           <section className="mt-12 bg-ink rounded-2xl p-8 text-center">
             <p className="text-white text-xl leading-relaxed italic">&ldquo;{page.testimonial.quote[lang]}&rdquo;</p>
@@ -169,14 +215,16 @@ export default function ServiceDetailClient(props: Props) {
           </section>
         )}
 
-        <div className="mt-12 text-center">
-          <Link
-            href="/calendar"
-            className="inline-block px-8 py-4 text-base font-bold uppercase tracking-[0.12em] bg-ink text-white rounded-full hover:bg-red transition-colors"
-          >
-            {t("bookNow")}
-          </Link>
-        </div>
+        {!(bookableEvent && bookableEvent.listBuyItems.length > 0) && (
+          <div className="mt-12 text-center">
+            <Link
+              href="/calendar"
+              className="inline-block px-8 py-4 text-base font-bold uppercase tracking-[0.12em] bg-ink text-white rounded-full hover:bg-red transition-colors"
+            >
+              {t("bookNow")}
+            </Link>
+          </div>
+        )}
 
         <ServiceNav slug={page.slug} />
       </div>

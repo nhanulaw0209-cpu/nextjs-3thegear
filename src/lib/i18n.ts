@@ -287,6 +287,7 @@ export const UI_STRINGS = {
   showDurationLabel: { vi: "Thời lượng show:", en: "Show duration:", ru: "Длительность шоу:", zh: "演出时长：", ko: "공연 시간:" },
   listBuyHeading: { vi: "Gói Dịch Vụ", en: "Packages", ru: "Пакеты услуг", zh: "服务套餐", ko: "서비스 패키지" },
   setlistHeading: { vi: "Danh Sách Bài Hát", en: "Setlist", ru: "Плейлист", zh: "歌单", ko: "셋리스트" },
+  equipmentHeading: { vi: "Thiết Bị Sử Dụng", en: "Equipment", ru: "Оборудование", zh: "设备清单", ko: "장비 목록" },
   imagesHeading: { vi: "Hình Ảnh", en: "Photos", ru: "Фотографии", zh: "图片", ko: "사진" },
   bookingHeading: { vi: "Đặt Lịch", en: "Booking", ru: "Бронирование", zh: "预订", ko: "예약" },
   contactToBook: { vi: "Liên hệ đặt lịch", en: "Contact to Book", ru: "Связаться для бронирования", zh: "联系预订", ko: "예약 문의" },
