@@ -13,6 +13,13 @@ export interface CalendarSlot {
   status: string;
   location: string | null;
   event: { id: string; title: string; slug?: string } | null;
+  services?: { id: string; title: string }[];
+}
+
+// Nhãn hiển thị của 1 slot: gộp tất cả dịch vụ (Band · Âm thanh...), fallback về dịch vụ chính.
+export function slotLabel(s: CalendarSlot): string {
+  if (s.services && s.services.length > 0) return s.services.map((x) => x.title).join(" · ");
+  return s.event?.title ?? "-";
 }
 
 const STATUS_COLOR: Record<string, string> = {
@@ -240,34 +247,40 @@ export default function ShowCalendar({ slots, onSelectSlot, hideCancelled, booka
               const daySlots = slotsOnDate(visibleSlots, cellYear, cellMonth, d);
               const isToday = today.toDateString() === new Date(cellYear, cellMonth, d).toDateString();
               const isAdjacent = mo !== 0;
-              const filledCount = daySlots.filter((s) => s.status === "booked" || s.status === "pending").length;
-              const fillStatus = dominantFilledStatus(daySlots);
-              // Ratio of the day's configured slots that are booked/pending — grows the
-              // fill bar left-to-right, full only once every slot for the day is taken.
-              const fillRatio = fillStatus ? Math.min(1, totalSlotsPerDay ? filledCount / totalSlotsPerDay : 1) : 0;
+              // Trạng thái nổi bật của ngày quyết định màu VIỀN đậm (không fill nền nữa):
+              // đã đặt → viền đỏ, đã huỷ → viền xám, đang chờ → viền hổ phách.
+              const hasBooked = daySlots.some((s) => s.status === "booked");
+              const hasPending = daySlots.some((s) => s.status === "pending");
+              const hasCancelled = daySlots.some((s) => s.status === "cancelled");
 
               let cellBg = "bg-white hover:bg-cream";
               if (isAdjacent) cellBg = "bg-cream/40";
               else if (isToday) cellBg = "bg-amber-50 hover:bg-cream";
 
+              let cellBorder = isToday ? "border border-red" : "border border-border";
+              if (isAdjacent) {
+                cellBorder = "border border-border/40 opacity-40";
+              } else if (hasBooked) {
+                cellBorder = "border-2 border-red-600";
+              } else if (hasPending) {
+                cellBorder = "border-2 border-amber-500";
+              } else if (hasCancelled) {
+                cellBorder = "border-2 border-gray-500";
+              }
+
               return (
                 <button
                   key={`${mo}-${d}-${di}`}
                   onClick={() => selectDay(cellYear, cellMonth, d)}
-                  className={`relative overflow-hidden min-h-[64px] p-1 text-left border rounded-lg transition-colors ${isAdjacent ? "border-border/40 opacity-40" : isToday ? "border-red" : "border-border"} ${cellBg}`}
+                  className={`relative overflow-hidden min-h-[64px] p-1 text-left rounded-lg transition-colors ${cellBorder} ${cellBg}`}
                 >
-                  {fillRatio > 0 && !isAdjacent && (
-                    <div
-                      className={`absolute inset-y-0 left-0 ${STATUS_CELL_BG[fillStatus!] ?? "bg-gray-300/70"}`}
-                      style={{ width: `${fillRatio * 100}%` }}
-                    />
-                  )}
                   <span className={`relative z-10 text-base font-semibold block mb-0.5 ${isToday ? "text-red" : "text-ink/70"}`}>{d}</span>
                   <div className="relative z-10 space-y-0.5">
                     {daySlots.slice(0, 2).map((s) => (
                       <span key={s.id} className="flex items-center gap-1">
                         <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ring-2 ring-white/70 ${STATUS_COLOR[s.status] ?? "bg-gray-300"}`} />
-                        <span className="text-[13px] truncate leading-tight text-ink">{s.event?.title ?? "-"}</span>
+                        {s.startTime && <span className="text-[11px] font-semibold text-red flex-shrink-0">{s.startTime}</span>}
+                        <span className="text-[13px] truncate leading-tight text-ink">{slotLabel(s)}</span>
                       </span>
                     ))}
                     {daySlots.length > 2 && <span className="text-[13px] text-text/50">+{daySlots.length - 2}</span>}
@@ -308,7 +321,7 @@ export default function ShowCalendar({ slots, onSelectSlot, hideCancelled, booka
                 {daySlots.map((s) => (
                   <div key={s.id} className="text-[14px] px-1.5 py-0.5 rounded-md bg-ink/5 flex items-center gap-1 truncate">
                     <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${STATUS_COLOR[s.status] ?? "bg-gray-300"}`} />
-                    <span className="truncate">{s.event?.title ?? "-"}</span>
+                    <span className="truncate">{slotLabel(s)}</span>
                   </div>
                 ))}
               </div>
@@ -376,7 +389,14 @@ export default function ShowCalendar({ slots, onSelectSlot, hideCancelled, booka
                     >
                       <div className="flex items-start justify-between gap-2">
                         <div>
-                          <p className="font-bold text-ink text-lg">{s.event?.title ?? L.unassignedSlot}</p>
+                          <p className="font-bold text-ink text-lg">{s.services && s.services.length > 0 ? slotLabel(s) : s.event?.title ?? L.unassignedSlot}</p>
+                          {s.services && s.services.length > 1 && (
+                            <div className="flex flex-wrap gap-1 mt-1">
+                              {s.services.map((sv) => (
+                                <span key={sv.id} className="text-xs bg-ink/5 text-ink rounded-full px-2 py-0.5">{sv.title}</span>
+                              ))}
+                            </div>
+                          )}
                           {s.startTime && <p className="text-base text-text/60">{fmtTime(s.startTime)}</p>}
                           {s.location && <p className="text-base text-text/60">{s.location}</p>}
                         </div>

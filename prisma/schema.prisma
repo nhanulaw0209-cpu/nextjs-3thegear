@@ -21,6 +21,7 @@ model Event {
   galleryItems  GalleryItem[]
   bookings      Booking[]
   scheduleSlots ShowSchedule[]
+  scheduleServices ShowScheduleService[]
   createdAt     DateTime           @default(now())
   updatedAt     DateTime           @updatedAt
 }
@@ -48,19 +49,34 @@ model EventListBuyItem {
 
 // status: "available" | "pending" | "booked" | "cancelled"
 model ShowSchedule {
-  id        String   @id @default(cuid())
+  id        String                @id @default(cuid())
   date      String
   startTime String?
   endTime   String?
-  status    String   @default("available")
+  status    String                @default("available")
   eventId   String?
-  event     Event?   @relation(fields: [eventId], references: [id])
-  bookingId String?  @unique
-  booking   Booking? @relation(fields: [bookingId], references: [id])
+  event     Event?                @relation(fields: [eventId], references: [id])
+  bookingId String?                @unique
+  booking   Booking?              @relation(fields: [bookingId], references: [id])
   location  String?
   notes     String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  services  ShowScheduleService[]
+  createdAt DateTime              @default(now())
+  updatedAt DateTime              @updatedAt
+}
+
+// One row per service/event assigned to a schedule slot — a slot can bundle
+// several services (e.g. Band + Sound & Lighting) in one booking instead of
+// only ever having the single primary ShowSchedule.eventId.
+model ShowScheduleService {
+  id         String       @id @default(cuid())
+  scheduleId String
+  schedule   ShowSchedule @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
+  eventId    String
+  event      Event        @relation(fields: [eventId], references: [id])
+  note       String?
+  price      Int?
+  sortOrder  Int          @default(0)
 }
 
 // status: "pending_payment" | "payment_submitted" | "confirmed" | "cancelled"
