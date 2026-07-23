@@ -91,7 +91,7 @@ export const SERVICE_PAGES: ServicePage[] = [
     label: "3TG Band",
     heroImage: "/3thegear-photos/img/photo-58.jpg",
     bookableEventSlug: "live-band-for-event",
-    mergedEventSlugs: ["booking-acoustic-band"],
+    mergedEventSlugs: ["booking-acoustic-band", "band"],
     tagline: {
       vi: "Live Band Đa Phong Cách",
       en: "Multi-Genre Live Band",

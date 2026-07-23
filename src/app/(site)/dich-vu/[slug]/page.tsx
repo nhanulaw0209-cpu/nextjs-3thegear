@@ -33,7 +33,11 @@ export default async function ServiceGroupPage({ params }: { params: { slug: str
         select: {
           id: true,
           description: true,
-          listBuyItems: { where: { isActive: true }, orderBy: { sortOrder: "asc" }, select: { id: true, name: true, price: true } },
+          listBuyItems: {
+            where: { isActive: true },
+            orderBy: { sortOrder: "asc" },
+            select: { id: true, name: true, description: true, price: true },
+          },
           setlistItems: { orderBy: { sortOrder: "asc" }, select: { title: true, artist: true } },
         },
       })

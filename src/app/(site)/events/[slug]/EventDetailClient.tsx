@@ -4,6 +4,10 @@ import { useLang } from "@/lib/lang-context";
 import GalleryGrid from "@/components/site/GalleryGrid";
 import BookingForm from "@/components/site/BookingForm";
 
+function formatVnd(n: number) {
+  return n.toLocaleString("vi-VN") + "đ";
+}
+
 interface EventDetail {
   id: string;
   title: string;
@@ -44,21 +48,26 @@ export default function EventDetailClient({ event }: { event: EventDetail }) {
           </p>
         )}
 
-        {event.listBuyItems.length > 0 && (
-          <section className="mt-12">
-            <h2 className="font-jost text-xl font-bold text-ink mb-5">
-              {t("listBuyHeading")}
-            </h2>
+        <section className="mt-12">
+          <h2 className="font-jost text-xl font-bold text-ink mb-5">
+            {t("listBuyHeading")}
+          </h2>
+          {event.listBuyItems.length > 0 ? (
             <div className="border border-border divide-y divide-border rounded-2xl overflow-hidden">
               {event.listBuyItems.map((item) => (
                 <div key={item.id} className="p-4">
-                  <div className="font-semibold text-ink text-lg">{item.name}</div>
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="font-semibold text-ink text-lg">{item.name}</span>
+                    <span className="font-jost text-lg font-bold text-red whitespace-nowrap">{formatVnd(item.price)}</span>
+                  </div>
                   {item.description && <div className="text-base text-text mt-1">{item.description}</div>}
                 </div>
               ))}
             </div>
-          </section>
-        )}
+          ) : (
+            <p className="text-lg text-text italic">{t("pricingComingSoon")}</p>
+          )}
+        </section>
 
         {event.setlistItems.length > 0 && (
           <section className="mt-12">

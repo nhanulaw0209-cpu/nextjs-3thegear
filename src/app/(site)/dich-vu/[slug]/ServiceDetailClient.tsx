@@ -12,7 +12,7 @@ function formatVnd(n: number) {
 interface BookableEvent {
   id: string;
   description: string | null;
-  listBuyItems: { id: string; name: string; price: number }[];
+  listBuyItems: { id: string; name: string; description: string | null; price: number }[];
   setlistItems: { title: string; artist: string | null }[];
 }
 
@@ -188,9 +188,12 @@ export default function ServiceDetailClient(props: Props) {
             {bookableEvent && bookableEvent.listBuyItems.length > 0 ? (
               <div className="border border-border divide-y divide-border rounded-2xl overflow-hidden">
                 {bookableEvent.listBuyItems.map((item) => (
-                  <div key={item.id} className="flex items-center justify-between gap-4 p-4">
-                    <span className="text-lg text-ink">{item.name}</span>
-                    <span className="font-jost text-lg font-bold text-red whitespace-nowrap">{formatVnd(item.price)}</span>
+                  <div key={item.id} className="p-4">
+                    <div className="flex items-center justify-between gap-4">
+                      <span className="text-lg text-ink font-semibold">{item.name}</span>
+                      <span className="font-jost text-lg font-bold text-red whitespace-nowrap">{formatVnd(item.price)}</span>
+                    </div>
+                    {item.description && <div className="text-base text-text mt-1 whitespace-pre-line">{item.description}</div>}
                   </div>
                 ))}
               </div>
