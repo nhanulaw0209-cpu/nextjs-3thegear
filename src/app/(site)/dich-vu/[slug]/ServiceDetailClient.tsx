@@ -11,6 +11,7 @@ function formatVnd(n: number) {
 
 interface BookableEvent {
   id: string;
+  description: string | null;
   listBuyItems: { id: string; name: string; price: number }[];
   setlistItems: { title: string; artist: string | null }[];
 }
@@ -121,6 +122,9 @@ export default function ServiceDetailClient(props: Props) {
           {t("backToServices")}
         </Link>
         <p className="text-xl text-text mt-6 max-w-2xl">{page.intro[lang]}</p>
+        {bookableEvent?.description && (
+          <p className="text-lg leading-relaxed text-text mt-4 whitespace-pre-line">{bookableEvent.description}</p>
+        )}
 
         {page.sections.map((section) => (
           <section key={section.heading.vi} className="mt-12">

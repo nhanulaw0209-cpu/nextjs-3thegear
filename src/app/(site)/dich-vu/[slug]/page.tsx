@@ -29,6 +29,7 @@ export default async function ServiceGroupPage({ params }: { params: { slug: str
         where: { slug: page.bookableEventSlug },
         select: {
           id: true,
+          description: true,
           listBuyItems: { where: { isActive: true }, orderBy: { sortOrder: "asc" }, select: { id: true, name: true, price: true } },
           setlistItems: { orderBy: { sortOrder: "asc" }, select: { title: true, artist: true } },
         },
