@@ -205,7 +205,9 @@ export default function ServiceDetailClient(props: Props) {
 
         {bookableEvent && bookableEvent.setlistItems.length > 0 && (
           <section className="mt-12">
-            <h2 className="font-jost text-xl font-bold text-ink mb-5">{t("equipmentHeading")}</h2>
+            <h2 className="font-jost text-xl font-bold text-ink mb-5">
+              {t(page.setlistIsEquipment ? "equipmentHeading" : "setlistHeading")}
+            </h2>
             <div className="border border-border divide-y divide-border rounded-2xl overflow-hidden">
               {bookableEvent.setlistItems.map((item) => (
                 <div key={item.title} className="flex items-center justify-between gap-4 p-4">

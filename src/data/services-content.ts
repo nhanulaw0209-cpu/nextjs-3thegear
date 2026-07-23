@@ -36,6 +36,11 @@ export interface ServicePage {
   // into the page (after the bookableEventSlug event's description, if any),
   // so real written content isn't lost when their /events/[slug] page goes away.
   mergedEventSlugs?: string[];
+  // The bookable event's `setlistItems` are a generic (title, artist) list in
+  // the DB — for a live band that's a real song setlist, but for Sound &
+  // Lighting it was repurposed to list gear inventory instead. Defaults to
+  // "setlistHeading" (Danh Sách Bài Hát); set true only when it's equipment.
+  setlistIsEquipment?: boolean;
   sections: {
     heading: T;
     body?: T;
@@ -166,6 +171,7 @@ export const SERVICE_PAGES: ServicePage[] = [
     label: "3TG Sound & Lighting",
     heroImage: "/3thegear-photos/img/photo-64.jpg",
     bookableEventSlug: "cung-cap-am-thanh-anh-sang",
+    setlistIsEquipment: true,
     tagline: {
       vi: "Hệ Thống Âm Thanh & Ánh Sáng Chuyên Nghiệp",
       en: "Professional Sound & Lighting Systems",
