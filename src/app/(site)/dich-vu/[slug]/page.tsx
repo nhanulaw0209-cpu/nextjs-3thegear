@@ -5,15 +5,18 @@ import ServiceDetailClient from "./ServiceDetailClient";
 
 export const dynamic = "force-dynamic";
 
-// Event slugs that book through a SERVICE_PAGES group page instead of
+// Event slugs that redirect into a SERVICE_PAGES group page instead of
 // getting their own card in the "3TG Event" listing below — see
-// `bookableEventSlug` on the matching ServicePage in services-content.ts.
-const BOOKABLE_EVENT_SLUGS = SERVICE_PAGES.map((p) => p.bookableEventSlug).filter((s): s is string => !!s);
+// `bookableEventSlug` / `mergedEventSlugs` on the matching ServicePage in
+// services-content.ts.
+const MERGED_EVENT_SLUGS = SERVICE_PAGES.flatMap((p) => [p.bookableEventSlug, ...(p.mergedEventSlugs ?? [])]).filter(
+  (s): s is string => !!s
+);
 
 export default async function ServiceGroupPage({ params }: { params: { slug: string } }) {
   if (params.slug === "event") {
     const events = await prisma.event.findMany({
-      where: { isPublished: true, slug: { notIn: BOOKABLE_EVENT_SLUGS } },
+      where: { isPublished: true, slug: { notIn: MERGED_EVENT_SLUGS } },
       select: { id: true, slug: true, title: true, summary: true, heroImageUrl: true },
       orderBy: { createdAt: "asc" },
     });
@@ -36,5 +39,13 @@ export default async function ServiceGroupPage({ params }: { params: { slug: str
       })
     : null;
 
-  return <ServiceDetailClient variant="service" page={page} bookableEvent={bookableEvent} />;
+  const mergedEvents = page.mergedEventSlugs?.length
+    ? await prisma.event.findMany({
+        where: { slug: { in: page.mergedEventSlugs } },
+        select: { description: true },
+      })
+    : [];
+  const extraDescriptions = mergedEvents.map((e) => e.description).filter((d): d is string => !!d);
+
+  return <ServiceDetailClient variant="service" page={page} bookableEvent={bookableEvent} extraDescriptions={extraDescriptions} />;
 }

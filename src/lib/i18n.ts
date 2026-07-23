@@ -288,6 +288,13 @@ export const UI_STRINGS = {
   listBuyHeading: { vi: "Gói Dịch Vụ", en: "Packages", ru: "Пакеты услуг", zh: "服务套餐", ko: "서비스 패키지" },
   setlistHeading: { vi: "Danh Sách Bài Hát", en: "Setlist", ru: "Плейлист", zh: "歌单", ko: "셋리스트" },
   equipmentHeading: { vi: "Thiết Bị Sử Dụng", en: "Equipment", ru: "Оборудование", zh: "设备清单", ko: "장비 목록" },
+  pricingComingSoon: {
+    vi: "Đang cập nhật, liên hệ hotline/Zalo để được báo giá.",
+    en: "Coming soon — contact us via hotline/Zalo for a quote.",
+    ru: "Скоро появится — свяжитесь с нами по горячей линии/Zalo для расчёта.",
+    zh: "内容更新中，请通过热线/Zalo联系获取报价。",
+    ko: "업데이트 중입니다. 견적은 핫라인/Zalo로 문의해 주세요.",
+  },
   imagesHeading: { vi: "Hình Ảnh", en: "Photos", ru: "Фотографии", zh: "图片", ko: "사진" },
   bookingHeading: { vi: "Đặt Lịch", en: "Booking", ru: "Бронирование", zh: "预订", ko: "예약" },
   contactToBook: { vi: "Liên hệ đặt lịch", en: "Contact to Book", ru: "Связаться для бронирования", zh: "联系预订", ko: "예약 문의" },

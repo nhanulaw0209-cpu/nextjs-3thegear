@@ -31,6 +31,11 @@ export interface ServicePage {
   // on this page instead of the Event needing its own separate /events/[slug]
   // listing under the "3TG Event" group.
   bookableEventSlug?: string;
+  // Other DB Event slugs that redirect to this group page too but don't have
+  // their own priced packages to book — only their description gets folded
+  // into the page (after the bookableEventSlug event's description, if any),
+  // so real written content isn't lost when their /events/[slug] page goes away.
+  mergedEventSlugs?: string[];
   sections: {
     heading: T;
     body?: T;
@@ -85,6 +90,8 @@ export const SERVICE_PAGES: ServicePage[] = [
     slug: "band",
     label: "3TG Band",
     heroImage: "/3thegear-photos/img/photo-58.jpg",
+    bookableEventSlug: "live-band-for-event",
+    mergedEventSlugs: ["booking-acoustic-band"],
     tagline: {
       vi: "Live Band Đa Phong Cách",
       en: "Multi-Genre Live Band",
@@ -135,138 +142,6 @@ export const SERVICE_PAGES: ServicePage[] = [
           "Keyboard",
           "Drummer",
         ]),
-      },
-      {
-        heading: { vi: "Bảng Giá Tham Khảo", en: "Reference Pricing", ru: "Ориентировочные цены", zh: "参考报价", ko: "참고 견적" },
-        packages: [
-          {
-            name: {
-              vi: "Gói Duo Acoustic",
-              en: "Duo Acoustic Package",
-              ru: "Пакет Duo Acoustic",
-              zh: "二人木吉他套餐",
-              ko: "듀오 어쿠스틱 패키지",
-            },
-            price: {
-              vi: "2.500.000đ / show",
-              en: "2,500,000 VND / show",
-              ru: "2 500 000 донгов / шоу",
-              zh: "250万越南盾 / 场",
-              ko: "250만 동 / 공연",
-            },
-            includes: {
-              vi: ["1 guitarist", "1 ca sĩ", "Set nhạc 45-60 phút"],
-              en: ["1 guitarist", "1 vocalist", "45-60 minute set"],
-              ru: ["1 гитарист", "1 вокалист", "Сет 45-60 минут"],
-              zh: ["1名吉他手", "1名歌手", "45-60分钟演出"],
-              ko: ["기타리스트 1인", "보컬 1인", "45-60분 공연"],
-            },
-            suited: {
-              vi: "Phù hợp tiệc gia đình, khai trương nhỏ, sự kiện thân mật dưới 50 khách.",
-              en: "Suited to family gatherings, small openings, intimate events under 50 guests.",
-              ru: "Подходит для семейных торжеств, небольших открытий, камерных мероприятий до 50 гостей.",
-              zh: "适合家庭聚会、小型开业典礼、50人以下的私密活动。",
-              ko: "가족 모임, 소규모 오픈 행사, 50명 이하의 소규모 행사에 적합.",
-            },
-          },
-          {
-            name: {
-              vi: "Trio / Acoustic Band",
-              en: "Trio / Acoustic Band",
-              ru: "Trio / Acoustic Band",
-              zh: "三人 / 木吉他乐队",
-              ko: "트리오 / 어쿠스틱 밴드",
-            },
-            price: {
-              vi: "4.500.000đ / show",
-              en: "4,500,000 VND / show",
-              ru: "4 500 000 донгов / шоу",
-              zh: "450万越南盾 / 场",
-              ko: "450만 동 / 공연",
-            },
-            includes: {
-              vi: ["2-3 nhạc công (guitar, bass/cajon, keyboard)", "1 ca sĩ", "Set nhạc 60-90 phút, nhiều thể loại"],
-              en: ["2-3 musicians (guitar, bass/cajon, keyboard)", "1 vocalist", "60-90 minute set, multiple genres"],
-              ru: ["2-3 музыканта (гитара, бас/кахон, клавиши)", "1 вокалист", "Сет 60-90 минут, разные жанры"],
-              zh: ["2-3名乐手（吉他、贝斯/木箱鼓、键盘）", "1名歌手", "60-90分钟演出，多种曲风"],
-              ko: ["연주자 2-3인 (기타, 베이스/카혼, 키보드)", "보컬 1인", "60-90분 공연, 다양한 장르"],
-            },
-            suited: {
-              vi: "Phù hợp tiệc cưới nhỏ, khai trương, sự kiện 50-150 khách.",
-              en: "Suited to small weddings, openings, events of 50-150 guests.",
-              ru: "Подходит для небольших свадеб, открытий, мероприятий на 50-150 гостей.",
-              zh: "适合小型婚礼、开业典礼、50-150人活动。",
-              ko: "소규모 결혼식, 오픈 행사, 50-150명 행사에 적합.",
-            },
-          },
-          {
-            name: {
-              vi: "Full Band",
-              en: "Full Band",
-              ru: "Full Band",
-              zh: "全乐队",
-              ko: "풀 밴드",
-            },
-            price: {
-              vi: "8.000.000đ / show",
-              en: "8,000,000 VND / show",
-              ru: "8 000 000 донгов / шоу",
-              zh: "800万越南盾 / 场",
-              ko: "800만 동 / 공연",
-            },
-            includes: {
-              vi: ["Full 5 vị trí: guitar, bass, keyboard, trống, ca sĩ", "Nhiều thể loại: Latin, Pop, Rock, EDM", "Set nhạc theo yêu cầu chương trình"],
-              en: ["Full 5-piece: guitar, bass, keyboard, drums, vocalist", "Multiple genres: Latin, Pop, Rock, EDM", "Setlist tailored to your program"],
-              ru: ["Полный состав из 5: гитара, бас, клавиши, барабаны, вокал", "Разные жанры: Latin, Pop, Rock, EDM", "Программа под ваше мероприятие"],
-              zh: ["完整5人：吉他、贝斯、键盘、鼓、歌手", "多种曲风：Latin、Pop、Rock、EDM", "根据活动定制曲目"],
-              ko: ["5인 풀 구성: 기타, 베이스, 키보드, 드럼, 보컬", "다양한 장르: Latin, Pop, Rock, EDM", "행사 맞춤 셋리스트"],
-            },
-            suited: {
-              vi: "Phù hợp tiệc cưới, gala, sự kiện doanh nghiệp 150-400 khách.",
-              en: "Suited to weddings, galas, corporate events of 150-400 guests.",
-              ru: "Подходит для свадеб, гала, корпоративов на 150-400 гостей.",
-              zh: "适合婚礼、晚宴、150-400人企业活动。",
-              ko: "결혼식, 갈라, 150-400명 기업 행사에 적합.",
-            },
-          },
-          {
-            name: {
-              vi: "Full Band + Âm thanh & Ánh sáng",
-              en: "Full Band + Sound & Lighting",
-              ru: "Full Band + звук и свет",
-              zh: "全乐队 + 音响灯光",
-              ko: "풀 밴드 + 음향 & 조명",
-            },
-            price: {
-              vi: "12.000.000đ / show",
-              en: "12,000,000 VND / show",
-              ru: "12 000 000 донгов / шоу",
-              zh: "1200万越南盾 / 场",
-              ko: "1,200만 동 / 공연",
-            },
-            includes: {
-              vi: ["Full band 5 vị trí", "Trọn gói âm thanh - ánh sáng - sân khấu", "Soundman + vận hành kỹ thuật"],
-              en: ["Full 5-piece band", "Complete sound - lighting - staging package", "Soundman + technical operation"],
-              ru: ["Полный состав из 5", "Полный пакет звук - свет - сцена", "Звукооператор + техобслуживание"],
-              zh: ["完整5人乐队", "音响-灯光-舞台整套", "音响师 + 技术运营"],
-              ko: ["5인 풀 밴드", "음향-조명-무대 풀패키지", "사운드맨 + 기술 운영"],
-            },
-            suited: {
-              vi: "Phù hợp sự kiện lớn, gala, liveshow ngoài trời.",
-              en: "Suited to large events, galas, outdoor live shows.",
-              ru: "Подходит для крупных мероприятий, гала, лайв-шоу на открытом воздухе.",
-              zh: "适合大型活动、晚宴、户外演出。",
-              ko: "대형 행사, 갈라, 야외 라이브쇼에 적합.",
-            },
-          },
-        ],
-        note: {
-          vi: "Giá trên là tham khảo, có thể thay đổi theo chương trình & số thành viên. Yêu cầu đặc biệt: liên hệ hotline/Zalo để được báo giá riêng.",
-          en: "Full band, multiple genres, larger scale: contact us via hotline/Zalo for a custom quote per event.",
-          ru: "Полный состав группы, разные жанры, больший масштаб: свяжитесь с нами по горячей линии/Zalo для индивидуального расчёта.",
-          zh: "多风格全乐队、更大规模：请通过热线/Zalo联系获取活动专属报价。",
-          ko: "다장르 풀 밴드, 더 큰 규모: 행사별 맞춤 견적은 핫라인/Zalo로 문의해 주세요.",
-        },
       },
     ],
     testimonial: {
@@ -414,6 +289,7 @@ export const SERVICE_PAGES: ServicePage[] = [
     slug: "production",
     label: "3TG Production",
     heroImage: "/3thegear-photos/img/photo-72.jpg",
+    bookableEventSlug: "san-xuat-noi-dung",
     tagline: {
       vi: "Media · Recap · Livestream",
       en: "Media · Recap · Livestream",
@@ -464,48 +340,6 @@ export const SERVICE_PAGES: ServicePage[] = [
           ru: ["Гала-ужины и корпоративные мероприятия", "Latin & Disco Night", "Guitar Duo Special Night", "Acoustic Vibes"],
           zh: ["晚宴与企业活动", "Latin & Disco Night", "Guitar Duo Special Night", "Acoustic Vibes"],
           ko: ["갈라 디너 & 기업 행사", "Latin & Disco Night", "Guitar Duo Special Night", "Acoustic Vibes"],
-        },
-      },
-      {
-        heading: { vi: "Bảng Giá Tham Khảo", en: "Reference Pricing", ru: "Ориентировочные цены", zh: "参考报价", ko: "참고 견적" },
-        packages: [
-          {
-            name: {
-              vi: "Gói Ghi Hình Cơ Bản",
-              en: "Basic Filming Package",
-              ru: "Базовый пакет съёмки",
-              zh: "基础拍摄套餐",
-              ko: "베이직 촬영 패키지",
-            },
-            price: {
-              vi: "2.500.000đ / buổi",
-              en: "2,500,000 VND / session",
-              ru: "2 500 000 донгов / сессия",
-              zh: "250万越南盾 / 场",
-              ko: "250만 동 / 세션",
-            },
-            includes: {
-              vi: ["1 quay phim + 1 chụp ảnh", "Video recap 3-5 phút", "Bàn giao trong 3 ngày"],
-              en: ["1 videographer + 1 photographer", "3-5 minute recap video", "Delivered within 3 days"],
-              ru: ["1 видеооператор + 1 фотограф", "Репортажное видео 3-5 минут", "Доставка в течение 3 дней"],
-              zh: ["1名摄像+1名摄影师", "3-5分钟回顾视频", "3天内交付"],
-              ko: ["촬영기사 1인 + 사진작가 1인", "3-5분 리캡 영상", "3일 내 전달"],
-            },
-            suited: {
-              vi: "Phù hợp sự kiện nhỏ dưới 3 giờ.",
-              en: "Suited to small events under 3 hours.",
-              ru: "Подходит для небольших мероприятий до 3 часов.",
-              zh: "适合3小时以内的小型活动。",
-              ko: "3시간 이내의 소규모 행사에 적합.",
-            },
-          },
-        ],
-        note: {
-          vi: "Livestream đa góc máy, ekip nhiều người, sự kiện quy mô lớn: liên hệ hotline/Zalo để được tư vấn báo giá riêng theo từng sự kiện.",
-          en: "Multi-camera livestream, larger crew, large-scale events: contact us via hotline/Zalo for a custom quote per event.",
-          ru: "Многокамерная прямая трансляция, большая команда, масштабные мероприятия: свяжитесь с нами по горячей линии/Zalo для индивидуального расчёта.",
-          zh: "多机位直播、更大团队、大型活动：请通过热线/Zalo联系获取活动专属报价。",
-          ko: "멀티캠 라이브 스트리밍, 대규모 인력, 대형 행사: 행사별 맞춤 견적은 핫라인/Zalo로 문의해 주세요.",
         },
       },
     ],

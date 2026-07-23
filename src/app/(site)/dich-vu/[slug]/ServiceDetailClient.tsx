@@ -62,7 +62,7 @@ interface EventSummary {
 
 type Props =
   | { variant: "event"; events: EventSummary[] }
-  | { variant: "service"; page: ServicePage; bookableEvent: BookableEvent | null };
+  | { variant: "service"; page: ServicePage; bookableEvent: BookableEvent | null; extraDescriptions: string[] };
 
 export default function ServiceDetailClient(props: Props) {
   const { lang, t } = useLang();
@@ -78,7 +78,7 @@ export default function ServiceDetailClient(props: Props) {
           </Link>
           <p className="text-xl text-text mt-6 max-w-2xl">{EVENT_GROUP.intro[lang]}</p>
 
-          {events.length > 0 && (
+          {events.length > 0 ? (
             <section className="mt-12 grid sm:grid-cols-2 gap-6">
               {events.map((ev) => (
                 <Link key={ev.id} href={`/events/${ev.slug}`} className="group block rounded-2xl overflow-hidden border border-border">
@@ -95,6 +95,8 @@ export default function ServiceDetailClient(props: Props) {
                 </Link>
               ))}
             </section>
+          ) : (
+            <p className="text-lg text-text italic mt-12">{t("pricingComingSoon")}</p>
           )}
 
           <div className="mt-12 text-center">
@@ -112,7 +114,7 @@ export default function ServiceDetailClient(props: Props) {
     );
   }
 
-  const { page, bookableEvent } = props;
+  const { page, bookableEvent, extraDescriptions } = props;
 
   return (
     <main className="min-h-screen bg-white">
@@ -125,6 +127,9 @@ export default function ServiceDetailClient(props: Props) {
         {bookableEvent?.description && (
           <p className="text-lg leading-relaxed text-text mt-4 whitespace-pre-line">{bookableEvent.description}</p>
         )}
+        {extraDescriptions.map((desc) => (
+          <p key={desc} className="text-lg leading-relaxed text-text mt-4 whitespace-pre-line">{desc}</p>
+        ))}
 
         {page.sections.map((section) => (
           <section key={section.heading.vi} className="mt-12">
@@ -177,17 +182,21 @@ export default function ServiceDetailClient(props: Props) {
           </section>
         ))}
 
-        {bookableEvent && bookableEvent.listBuyItems.length > 0 && (
+        {page.bookableEventSlug && (
           <section className="mt-12">
             <h2 className="font-jost text-xl font-bold text-ink mb-5">{t("listBuyHeading")}</h2>
-            <div className="border border-border divide-y divide-border rounded-2xl overflow-hidden">
-              {bookableEvent.listBuyItems.map((item) => (
-                <div key={item.id} className="flex items-center justify-between gap-4 p-4">
-                  <span className="text-lg text-ink">{item.name}</span>
-                  <span className="font-jost text-lg font-bold text-red whitespace-nowrap">{formatVnd(item.price)}</span>
-                </div>
-              ))}
-            </div>
+            {bookableEvent && bookableEvent.listBuyItems.length > 0 ? (
+              <div className="border border-border divide-y divide-border rounded-2xl overflow-hidden">
+                {bookableEvent.listBuyItems.map((item) => (
+                  <div key={item.id} className="flex items-center justify-between gap-4 p-4">
+                    <span className="text-lg text-ink">{item.name}</span>
+                    <span className="font-jost text-lg font-bold text-red whitespace-nowrap">{formatVnd(item.price)}</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-lg text-text italic">{t("pricingComingSoon")}</p>
+            )}
           </section>
         )}
 

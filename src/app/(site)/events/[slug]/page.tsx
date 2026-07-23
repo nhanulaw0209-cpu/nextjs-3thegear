@@ -4,10 +4,12 @@ import { SERVICE_PAGES } from "@/data/services-content";
 import EventDetailClient from "./EventDetailClient";
 
 export default async function EventPage({ params }: { params: { slug: string } }) {
-  // Events that now book through their SERVICE_PAGES group page directly
-  // (see bookableEventSlug in services-content.ts) redirect there instead of
-  // rendering a separate, duplicate /events/[slug] page.
-  const servicePage = SERVICE_PAGES.find((p) => p.bookableEventSlug === params.slug);
+  // Events that now live inside their SERVICE_PAGES group page directly
+  // (see bookableEventSlug / mergedEventSlugs in services-content.ts)
+  // redirect there instead of rendering a separate, duplicate /events/[slug] page.
+  const servicePage = SERVICE_PAGES.find(
+    (p) => p.bookableEventSlug === params.slug || p.mergedEventSlugs?.includes(params.slug)
+  );
   if (servicePage) redirect(`/dich-vu/${servicePage.slug}`);
 
   const event = await prisma.event.findUnique({
