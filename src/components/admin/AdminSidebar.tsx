@@ -11,6 +11,7 @@ const TABS: { id: AdminTab; label: string }[] = [
   { id: "partners", label: "Đối Tác" },
   { id: "reviews", label: "Đánh Giá" },
   { id: "feedback", label: "Góp Ý Riêng" },
+  { id: "content", label: "Nội Dung" },
   { id: "settings", label: "Cài Đặt" },
 ];
 

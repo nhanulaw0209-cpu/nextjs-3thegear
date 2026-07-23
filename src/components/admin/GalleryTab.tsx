@@ -15,11 +15,17 @@ const CATEGORY_LABEL: Record<GalleryCategory, string> = {
 
 const EMPTY_FORM = { type: "photo" as "photo" | "video", url: "", caption: "", category: "performance" as GalleryCategory, eventId: "" };
 
+// `webkitdirectory` enables folder selection in the file picker but isn't part
+// of React's input prop types, so it's applied via a typed prop bag instead of `any`.
+const folderInputProps: Record<string, string> = { webkitdirectory: "", directory: "" };
+
 export default function GalleryTab() {
   const [items, setItems] = useState<GalleryItemWithEvent[]>([]);
   const [events, setEvents] = useState<Pick<Event, "id" | "title">[]>([]);
   const [loading, setLoading] = useState(true);
   const [form, setForm] = useState(EMPTY_FORM);
+  const [batchUploading, setBatchUploading] = useState(false);
+  const [batchError, setBatchError] = useState("");
 
   const fetchAll = useCallback(async () => {
     const [galleryRes, eventsRes] = await Promise.all([
@@ -47,6 +53,50 @@ export default function GalleryTab() {
     fetchAll();
   }
 
+  // Uploads several photos/videos at once (same category/event as picked in
+  // the form above), one gallery item per file — for events where a whole
+  // batch of media from one shoot needs adding together instead of one at a
+  // time. Also used for whole-folder selection, which can't be filtered by
+  // the file picker's `accept` attribute, so non-media files are filtered here.
+  async function handleBatchUpload(fileList: FileList) {
+    setBatchUploading(true);
+    setBatchError("");
+    const errors: string[] = [];
+    try {
+      const files = Array.from(fileList);
+      const mediaFiles = files.filter((f) => f.type.startsWith("image/") || f.type.startsWith("video/"));
+      const skipped = files.length - mediaFiles.length;
+      if (skipped > 0) errors.push(`Đã bỏ qua ${skipped} file không phải ảnh/video`);
+
+      for (const file of mediaFiles) {
+        const isVideo = file.type.startsWith("video/");
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("category", "gallery");
+        const uploadRes = await fetch("/api/upload", { method: "POST", body: formData });
+        const uploadData = await uploadRes.json();
+        if (!uploadRes.ok) {
+          errors.push(`${file.name}: ${uploadData.error || "Upload thất bại"}`);
+          continue;
+        }
+        await fetch("/api/admin/gallery", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            type: isVideo ? "video" : "photo",
+            url: uploadData.url,
+            category: form.category,
+            eventId: form.eventId || null,
+          }),
+        });
+      }
+    } finally {
+      setBatchUploading(false);
+      if (errors.length > 0) setBatchError(errors.join(" · "));
+      fetchAll();
+    }
+  }
+
   async function handleDelete(id: string) {
     if (!confirm("Xoá mục này khỏi gallery?")) return;
     await fetch(`/api/admin/gallery/${id}`, { method: "DELETE" });
@@ -59,6 +109,18 @@ export default function GalleryTab() {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ category }),
+    });
+  }
+
+  function handleCaptionInput(id: string, caption: string) {
+    setItems((prev) => prev.map((it) => (it.id === id ? { ...it, caption } : it)));
+  }
+
+  async function handleCaptionBlur(id: string, caption: string) {
+    await fetch(`/api/admin/gallery/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ caption: caption || null }),
     });
   }
 
@@ -138,6 +200,48 @@ export default function GalleryTab() {
         </button>
       </form>
 
+      <div className="bg-white border border-border p-5 space-y-3 max-w-lg">
+        <label className="text-xs font-bold uppercase tracking-wide text-ink">
+          Upload nhiều ảnh cùng lúc
+        </label>
+        <p className="text-xs text-text">
+          Dùng &ldquo;Loại ảnh&rdquo; và &ldquo;Thuộc dịch vụ&rdquo; đã chọn ở form phía trên cho tất cả ảnh chọn ở đây.
+        </p>
+
+        <div className="space-y-1">
+          <p className="text-xs text-text">Chọn nhiều ảnh/video lẻ:</p>
+          <input
+            type="file"
+            accept="image/*,video/*"
+            multiple
+            disabled={batchUploading}
+            onChange={(e) => {
+              if (e.target.files && e.target.files.length > 0) handleBatchUpload(e.target.files);
+              e.target.value = "";
+            }}
+            className="text-sm"
+          />
+        </div>
+
+        <div className="space-y-1">
+          <p className="text-xs text-text">Hoặc chọn cả một thư mục ảnh/video:</p>
+          <input
+            type="file"
+            multiple
+            disabled={batchUploading}
+            {...folderInputProps}
+            onChange={(e) => {
+              if (e.target.files && e.target.files.length > 0) handleBatchUpload(e.target.files);
+              e.target.value = "";
+            }}
+            className="text-sm"
+          />
+        </div>
+
+        {batchUploading && <span className="text-xs text-text block">Đang tải lên...</span>}
+        {batchError && <p className="text-xs text-red-600">{batchError}</p>}
+      </div>
+
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {items.length === 0 && <p className="col-span-full text-sm text-text">Chưa có ảnh/video nào.</p>}
         {items.map((item) => (
@@ -149,7 +253,13 @@ export default function GalleryTab() {
               <img src={item.url} alt={item.caption ?? ""} className="w-full aspect-square object-cover" />
             )}
             <div className="p-2 space-y-1.5">
-              <div className="text-xs text-ink truncate">{item.caption || "-"}</div>
+              <input
+                value={item.caption ?? ""}
+                onChange={(e) => handleCaptionInput(item.id, e.target.value)}
+                onBlur={(e) => handleCaptionBlur(item.id, e.target.value)}
+                placeholder="Chú thích..."
+                className="w-full border border-border rounded px-1.5 py-1 text-[11px] text-ink"
+              />
               <div className="text-[10px] text-red font-semibold uppercase truncate">
                 {item.event ? item.event.title : "Gallery chung"}
               </div>

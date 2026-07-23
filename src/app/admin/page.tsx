@@ -14,6 +14,7 @@ import ReviewsTab from "@/components/admin/ReviewsTab";
 import FeedbackTab from "@/components/admin/FeedbackTab";
 import ScheduleTab from "@/components/admin/ScheduleTab";
 import SettingsTab from "@/components/admin/SettingsTab";
+import ContentTab from "@/components/admin/ContentTab";
 import { AdminTab } from "@/types/admin";
 
 const TAB_TITLES: Record<AdminTab, string> = {
@@ -25,6 +26,7 @@ const TAB_TITLES: Record<AdminTab, string> = {
   partners: "Đối Tác",
   reviews: "Đánh Giá",
   feedback: "Góp Ý Riêng",
+  content: "Nội Dung",
   settings: "Cài Đặt",
 };
 
@@ -133,6 +135,7 @@ function AdminPage() {
           {activeTab === "partners" && <PartnersTab />}
           {activeTab === "reviews" && <ReviewsTab />}
           {activeTab === "feedback" && <FeedbackTab />}
+          {activeTab === "content" && <ContentTab />}
           {activeTab === "settings" && <SettingsTab />}
         </div>
       </div>

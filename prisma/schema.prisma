@@ -157,3 +157,16 @@ model SiteSettings {
   showSlotStepMinutes Int      @default(180)
   updatedAt           DateTime @updatedAt
 }
+
+// Per-language override for a UI_STRINGS key (src/lib/i18n.ts). A null column
+// means "use the hardcoded default for that language" — only admin-edited
+// languages for a key get a row value, the rest still fall back to i18n.ts.
+model ContentOverride {
+  key       String   @id
+  vi        String?
+  en        String?
+  ru        String?
+  zh        String?
+  ko        String?
+  updatedAt DateTime @updatedAt
+}

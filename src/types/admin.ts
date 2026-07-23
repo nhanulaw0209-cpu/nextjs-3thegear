@@ -7,6 +7,7 @@ export type AdminTab =
   | "partners"
   | "reviews"
   | "feedback"
+  | "content"
   | "settings";
 
 export interface Event {
@@ -100,6 +101,20 @@ export interface Review {
   avatarUrl: string | null;
   sortOrder: number;
   isActive: boolean;
+}
+
+export interface ConsultationRequest {
+  id: string;
+  customerName: string;
+  customerPhone: string;
+  customerEmail: string | null;
+  eventDate: string | null;
+  eventTime: string | null;
+  serviceTypes: string;
+  budget: string | null;
+  notes: string | null;
+  contacted: boolean;
+  createdAt: string;
 }
 
 export interface NegativeFeedback {

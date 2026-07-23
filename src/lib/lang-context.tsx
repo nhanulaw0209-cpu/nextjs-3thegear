@@ -15,8 +15,11 @@ interface LangContextValue {
 
 const LangContext = createContext<LangContextValue | null>(null);
 
+type ContentOverrides = Partial<Record<keyof typeof UI_STRINGS, Partial<Record<Lang, string>>>>;
+
 export function LangProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>("vi");
+  const [overrides, setOverrides] = useState<ContentOverrides>({});
 
   useEffect(() => {
     const saved = localStorage.getItem("3tg-lang");
@@ -27,12 +30,19 @@ export function LangProvider({ children }: { children: ReactNode }) {
     document.documentElement.setAttribute("data-lang", lang);
   }, [lang]);
 
+  useEffect(() => {
+    fetch("/api/content", { cache: "no-store" })
+      .then((res) => (res.ok ? res.json() : {}))
+      .then(setOverrides)
+      .catch(() => {});
+  }, []);
+
   const setLang = (next: Lang) => {
     setLangState(next);
     localStorage.setItem("3tg-lang", next);
   };
 
-  const t = (key: keyof typeof UI_STRINGS) => UI_STRINGS[key][lang];
+  const t = (key: keyof typeof UI_STRINGS) => overrides[key]?.[lang] ?? UI_STRINGS[key][lang];
 
   return <LangContext.Provider value={{ lang, setLang, t }}>{children}</LangContext.Provider>;
 }

@@ -54,6 +54,13 @@ export default function ImageUploadField({ label, value, category, onChange }: P
         />
         {uploading && <span className="text-xs text-text">Đang tải...</span>}
       </div>
+      <input
+        type="url"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder="Hoặc dán link ảnh trực tiếp"
+        className="border border-border rounded-md px-3 py-1.5 text-xs w-full"
+      />
       {error && <p className="text-xs text-red-600">{error}</p>}
     </div>
   );
